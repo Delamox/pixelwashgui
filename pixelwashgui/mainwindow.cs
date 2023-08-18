@@ -12,8 +12,6 @@ namespace pixelwashgui
 {
     public partial class mainwindow : Form
     {
-        code codevar=new code();
-
         public mainwindow()
         {
             InitializeComponent();
@@ -24,44 +22,71 @@ namespace pixelwashgui
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void openfile_MouseClick(object sender, MouseEventArgs e)
         {
-            codevar.OpenFile();
+            OpenFileFunction();
         }
 
         private void savefile_MouseClick(object sender, MouseEventArgs e)
         {
-            //codevar.savefile();
+            //codevar.SaveFileFunction();
         }
 
-        private void openfile_Click(object sender, EventArgs e)
+        private void randomnesstrack_ValueChanged(object sender, EventArgs e)
+        {
+            randomnessvalue.Text = randomnesstrack.Value.ToString();
+            //codevar.ExecuteCommand();
+        }
+
+        private void lengthtrack_ValueChanged(object sender, EventArgs e)
+        {
+            lengthvalue.Text = lengthtrack.Value.ToString();
+        }
+
+        private void angletrack_ValueChanged(object sender, EventArgs e)
+        {
+            anglevalue.Text = angletrack.Value.ToString();
+        }
+
+        private void executebutton_Click(object sender, EventArgs e)
+        {
+            ExecuteCommand(randomnesstrack.Value, lengthtrack.Value, angletrack.Value);
+        }
+
+        private void preview_Click(object sender, EventArgs e)
         {
 
+        }
+        public string inputpath = string.Empty;
+        public void OpenFileFunction()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                openFileDialog.InitialDirectory = (userpath + "/Downloads");
+                openFileDialog.Filter = "Image Files(*.png;*.jpg)|*.png;*.jpg|All files (*,*)|*,*";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = false;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    inputpath = openFileDialog.FileName;
+                }
+                preview.ImageLocation = inputpath;
+                preview.Update();
+
+            }
+        }
+        public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C python -m pixelsort " + inputpath + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue;
+            process.StartInfo = startInfo;
+            process.Start();
+            MessageBox.Show("/C python -m pixelsort " + inputpath + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue);
         }
     }
 }

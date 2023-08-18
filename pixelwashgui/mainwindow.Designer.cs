@@ -40,6 +40,7 @@
             this.anglevalue = new System.Windows.Forms.TextBox();
             this.angle = new System.Windows.Forms.TextBox();
             this.angletrack = new System.Windows.Forms.TrackBar();
+            this.executebutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.preview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).BeginInit();
@@ -60,6 +61,7 @@
             this.preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.preview.TabIndex = 0;
             this.preview.TabStop = false;
+            this.preview.Click += new System.EventHandler(this.preview_Click);
             // 
             // openfile
             // 
@@ -69,7 +71,6 @@
             this.openfile.TabIndex = 1;
             this.openfile.Text = "open file";
             this.openfile.UseVisualStyleBackColor = true;
-            this.openfile.Click += new System.EventHandler(this.openfile_Click);
             this.openfile.MouseClick += new System.Windows.Forms.MouseEventHandler(this.openfile_MouseClick);
             // 
             // savefile
@@ -92,6 +93,7 @@
             this.lengthtrack.TabIndex = 3;
             this.lengthtrack.TickFrequency = 10;
             this.lengthtrack.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.lengthtrack.ValueChanged += new System.EventHandler(this.lengthtrack_ValueChanged);
             // 
             // randomnesstrack
             // 
@@ -103,6 +105,7 @@
             this.randomnesstrack.TabIndex = 4;
             this.randomnesstrack.TickFrequency = 10;
             this.randomnesstrack.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.randomnesstrack.ValueChanged += new System.EventHandler(this.randomnesstrack_ValueChanged);
             // 
             // randomness
             // 
@@ -114,7 +117,6 @@
             this.randomness.TabIndex = 5;
             this.randomness.Text = "randomness";
             this.randomness.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.randomness.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // length
             // 
@@ -126,7 +128,6 @@
             this.length.TabIndex = 6;
             this.length.Text = "length";
             this.length.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.length.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // randomnessvalue
             // 
@@ -138,7 +139,6 @@
             this.randomnessvalue.TabIndex = 7;
             this.randomnessvalue.Text = "0";
             this.randomnessvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.randomnessvalue.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // lengthvalue
             // 
@@ -150,7 +150,6 @@
             this.lengthvalue.TabIndex = 8;
             this.lengthvalue.Text = "0";
             this.lengthvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.lengthvalue.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // anglevalue
             // 
@@ -173,7 +172,6 @@
             this.angle.TabIndex = 10;
             this.angle.Text = "angle";
             this.angle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.angle.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // angletrack
             // 
@@ -185,12 +183,24 @@
             this.angletrack.TabIndex = 9;
             this.angletrack.TickFrequency = 45;
             this.angletrack.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.angletrack.ValueChanged += new System.EventHandler(this.angletrack_ValueChanged);
+            // 
+            // executebutton
+            // 
+            this.executebutton.Location = new System.Drawing.Point(12, 251);
+            this.executebutton.Name = "executebutton";
+            this.executebutton.Size = new System.Drawing.Size(75, 23);
+            this.executebutton.TabIndex = 12;
+            this.executebutton.Text = "execute";
+            this.executebutton.UseVisualStyleBackColor = true;
+            this.executebutton.Click += new System.EventHandler(this.executebutton_Click);
             // 
             // mainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.Controls.Add(this.executebutton);
             this.Controls.Add(this.anglevalue);
             this.Controls.Add(this.angle);
             this.Controls.Add(this.angletrack);
@@ -229,6 +239,7 @@
         private System.Windows.Forms.TextBox anglevalue;
         private System.Windows.Forms.TextBox angle;
         private System.Windows.Forms.TrackBar angletrack;
+        private System.Windows.Forms.Button executebutton;
     }
 }
 
