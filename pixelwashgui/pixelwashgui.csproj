@@ -52,8 +52,7 @@
     <Compile Include="mainwindow.Designer.cs">
       <DependentUpon>mainwindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="savefilecode.cs" />
-    <Compile Include="openfilecode.cs" />
+    <Compile Include="Program - Copy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="mainwindow.resx">

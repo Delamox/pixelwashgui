@@ -69,6 +69,7 @@
             this.openfile.TabIndex = 1;
             this.openfile.Text = "open file";
             this.openfile.UseVisualStyleBackColor = true;
+            this.openfile.Click += new System.EventHandler(this.openfile_Click);
             this.openfile.MouseClick += new System.Windows.Forms.MouseEventHandler(this.openfile_MouseClick);
             // 
             // savefile

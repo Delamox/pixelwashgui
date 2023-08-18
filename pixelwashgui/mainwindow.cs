@@ -12,8 +12,7 @@ namespace pixelwashgui
 {
     public partial class mainwindow : Form
     {
-        openfilecode openfilevar=new openfilecode();
-        savefilecode savefilevar=new savefilecode();
+        code codevar=new code();
 
         public mainwindow()
         {
@@ -52,12 +51,17 @@ namespace pixelwashgui
 
         private void openfile_MouseClick(object sender, MouseEventArgs e)
         {
-            openfilevar.openfile();
+            codevar.OpenFile();
         }
 
         private void savefile_MouseClick(object sender, MouseEventArgs e)
         {
-            savefilevar.savefile();
+            //codevar.savefile();
+        }
+
+        private void openfile_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
