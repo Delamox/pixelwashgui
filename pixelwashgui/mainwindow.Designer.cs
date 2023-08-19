@@ -48,15 +48,15 @@
             this.functionvalue = new System.Windows.Forms.TextBox();
             this.function = new System.Windows.Forms.TextBox();
             this.functiontrack = new System.Windows.Forms.TrackBar();
-            this.staticpic = new System.Windows.Forms.PictureBox();
             this.preview = new System.Windows.Forms.PictureBox();
+            this.staticpic = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.angletrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sortingtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.functiontrack)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staticpic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.preview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staticpic)).BeginInit();
             this.SuspendLayout();
             // 
             // openfile
@@ -289,6 +289,21 @@
             this.functiontrack.Value = 1;
             this.functiontrack.ValueChanged += new System.EventHandler(this.functiontrack_ValueChanged);
             // 
+            // preview
+            // 
+            this.preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.preview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(62)))));
+            this.preview.ImageLocation = "";
+            this.preview.InitialImage = global::pixelwashgui.Properties.Resources.Snooze_80;
+            this.preview.Location = new System.Drawing.Point(174, 12);
+            this.preview.Name = "preview";
+            this.preview.Size = new System.Drawing.Size(878, 564);
+            this.preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.preview.TabIndex = 0;
+            this.preview.TabStop = false;
+            // 
             // staticpic
             // 
             this.staticpic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -299,20 +314,6 @@
             this.staticpic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.staticpic.TabIndex = 20;
             this.staticpic.TabStop = false;
-            // 
-            // preview
-            // 
-            this.preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.preview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(62)))));
-            this.preview.ImageLocation = "";
-            this.preview.Location = new System.Drawing.Point(174, 12);
-            this.preview.Name = "preview";
-            this.preview.Size = new System.Drawing.Size(878, 564);
-            this.preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.preview.TabIndex = 0;
-            this.preview.TabStop = false;
             // 
             // mainwindow
             // 
@@ -350,8 +351,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.angletrack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sortingtrack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.functiontrack)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staticpic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.preview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staticpic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -7,6 +7,7 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace pixelwashgui
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            CreateFileWatcher();
         }
 
         private void openfile_MouseClick(object sender, MouseEventArgs e)
@@ -76,7 +77,26 @@ namespace pixelwashgui
         public static string doubletick = "\"";
         public string[] sortingarray = { "hue", "lightness", "intensity", "minimum", "saturation" };
         public string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
-        
+
+        public void CreateFileWatcher()
+        {
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = Path.Combine(userpath, "documents/pixelwashgui/");
+            watcher.NotifyFilter = NotifyFilters.LastWrite;
+            watcher.Filter = "tempwash.png";
+            watcher.Changed += new FileSystemEventHandler(OnChanged);
+            watcher.EnableRaisingEvents = true;
+        }
+
+        public void OnChanged(object source, FileSystemEventArgs e)
+        {
+            preview.Invoke((MethodInvoker)delegate
+            {
+                preview.ImageLocation = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
+                preview.Update();
+                
+            });
+        }
         public void OpenFileFunction()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -94,17 +114,19 @@ namespace pixelwashgui
                 preview.Update();
             }
         }
+        
         public void SaveFileFunction()
         {
             {
+                Random random = new Random();
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.InitialDirectory = (userpath + "/Downloads");
                 saveFileDialog.Filter = "Portable Network Graphics (*.png)|*.png|All files (*.*)|*.*";
+                saveFileDialog.DefaultExt = "png";
                 saveFileDialog.FilterIndex = 1;
                 saveFileDialog.RestoreDirectory = false;
-                saveFileDialog.DefaultExt = "png";
                 saveFileDialog.OverwritePrompt = true;
-                saveFileDialog.FileName = "pixelsort";
+                saveFileDialog.FileName = "pixelsort" + random.Next(1, 1000).ToString();
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -113,7 +135,7 @@ namespace pixelwashgui
             }
         }
 
-        public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue)
+        public async void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue)
         {
             Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui"));
             sortingvalue = sortingarray[sortingtrack.Value - 1];
@@ -127,7 +149,6 @@ namespace pixelwashgui
             startInfo.Arguments = completecommand;
             process.StartInfo = startInfo;
             process.Start();
-
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
