@@ -63,6 +63,16 @@ namespace pixelwashgui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _34042825 {
+            get {
+                object obj = ResourceManager.GetObject("34042825", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tempwash {
             get {
                 object obj = ResourceManager.GetObject("tempwash", resourceCulture);
