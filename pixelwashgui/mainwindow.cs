@@ -58,19 +58,8 @@ namespace pixelwashgui
         {
             ExecuteCommand(randomnesstrack.Value, lengthtrack.Value, angletrack.Value, sortingtrack.Value.ToString(), functiontrack.Value.ToString());
         }
-
-        private void preview_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void updatebutton_Click(object sender, EventArgs e)
-        {
-            preview.ImageLocation = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
-            preview.Update();
-        }
-
-        //spit here
+       
+        //split here
 
         public string inputpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -135,7 +124,7 @@ namespace pixelwashgui
             }
         }
 
-        public async void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue)
+        public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue)
         {
             Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui"));
             sortingvalue = sortingarray[sortingtrack.Value - 1];

@@ -41,7 +41,6 @@
             this.angle = new System.Windows.Forms.TextBox();
             this.angletrack = new System.Windows.Forms.TrackBar();
             this.executebutton = new System.Windows.Forms.Button();
-            this.updatebutton = new System.Windows.Forms.Button();
             this.sortingvalue = new System.Windows.Forms.TextBox();
             this.sorting = new System.Windows.Forms.TextBox();
             this.sortingtrack = new System.Windows.Forms.TrackBar();
@@ -50,6 +49,7 @@
             this.functiontrack = new System.Windows.Forms.TrackBar();
             this.preview = new System.Windows.Forms.PictureBox();
             this.staticpic = new System.Windows.Forms.PictureBox();
+            this.smallcontext = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.angletrack)).BeginInit();
@@ -203,18 +203,6 @@
             this.executebutton.UseVisualStyleBackColor = false;
             this.executebutton.Click += new System.EventHandler(this.executebutton_Click);
             // 
-            // updatebutton
-            // 
-            this.updatebutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
-            this.updatebutton.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.updatebutton.Location = new System.Drawing.Point(93, 391);
-            this.updatebutton.Name = "updatebutton";
-            this.updatebutton.Size = new System.Drawing.Size(75, 23);
-            this.updatebutton.TabIndex = 13;
-            this.updatebutton.Text = "update";
-            this.updatebutton.UseVisualStyleBackColor = false;
-            this.updatebutton.Click += new System.EventHandler(this.updatebutton_Click);
-            // 
             // sortingvalue
             // 
             this.sortingvalue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
@@ -315,19 +303,31 @@
             this.staticpic.TabIndex = 20;
             this.staticpic.TabStop = false;
             // 
+            // smallcontext
+            // 
+            this.smallcontext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.smallcontext.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.smallcontext.ForeColor = System.Drawing.Color.White;
+            this.smallcontext.Location = new System.Drawing.Point(93, 396);
+            this.smallcontext.Name = "smallcontext";
+            this.smallcontext.Size = new System.Drawing.Size(75, 13);
+            this.smallcontext.TabIndex = 21;
+            this.smallcontext.Text = "v1.0.1 Delamox";
+            this.smallcontext.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // mainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(43)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1064, 588);
+            this.Controls.Add(this.smallcontext);
             this.Controls.Add(this.functionvalue);
             this.Controls.Add(this.function);
             this.Controls.Add(this.functiontrack);
             this.Controls.Add(this.sortingvalue);
             this.Controls.Add(this.sorting);
             this.Controls.Add(this.sortingtrack);
-            this.Controls.Add(this.updatebutton);
             this.Controls.Add(this.executebutton);
             this.Controls.Add(this.anglevalue);
             this.Controls.Add(this.angle);
@@ -373,7 +373,6 @@
         private System.Windows.Forms.TextBox angle;
         private System.Windows.Forms.TrackBar angletrack;
         private System.Windows.Forms.Button executebutton;
-        private System.Windows.Forms.Button updatebutton;
         private System.Windows.Forms.TextBox sortingvalue;
         private System.Windows.Forms.TextBox sorting;
         private System.Windows.Forms.TrackBar sortingtrack;
@@ -381,6 +380,7 @@
         private System.Windows.Forms.TextBox function;
         private System.Windows.Forms.TrackBar functiontrack;
         private System.Windows.Forms.PictureBox staticpic;
+        private System.Windows.Forms.TextBox smallcontext;
     }
 }
 
