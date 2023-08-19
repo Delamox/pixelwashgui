@@ -41,6 +41,7 @@
             this.angle = new System.Windows.Forms.TextBox();
             this.angletrack = new System.Windows.Forms.TrackBar();
             this.executebutton = new System.Windows.Forms.Button();
+            this.updatebutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.preview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).BeginInit();
@@ -86,12 +87,12 @@
             // lengthtrack
             // 
             this.lengthtrack.Location = new System.Drawing.Point(12, 130);
-            this.lengthtrack.Maximum = 100;
+            this.lengthtrack.Maximum = 500;
             this.lengthtrack.Name = "lengthtrack";
             this.lengthtrack.Size = new System.Drawing.Size(156, 45);
-            this.lengthtrack.SmallChange = 10;
+            this.lengthtrack.SmallChange = 50;
             this.lengthtrack.TabIndex = 3;
-            this.lengthtrack.TickFrequency = 10;
+            this.lengthtrack.TickFrequency = 50;
             this.lengthtrack.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.lengthtrack.ValueChanged += new System.EventHandler(this.lengthtrack_ValueChanged);
             // 
@@ -195,11 +196,22 @@
             this.executebutton.UseVisualStyleBackColor = true;
             this.executebutton.Click += new System.EventHandler(this.executebutton_Click);
             // 
+            // updatebutton
+            // 
+            this.updatebutton.Location = new System.Drawing.Point(93, 251);
+            this.updatebutton.Name = "updatebutton";
+            this.updatebutton.Size = new System.Drawing.Size(75, 23);
+            this.updatebutton.TabIndex = 13;
+            this.updatebutton.Text = "update";
+            this.updatebutton.UseVisualStyleBackColor = true;
+            this.updatebutton.Click += new System.EventHandler(this.updatebutton_Click);
+            // 
             // mainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.Controls.Add(this.updatebutton);
             this.Controls.Add(this.executebutton);
             this.Controls.Add(this.anglevalue);
             this.Controls.Add(this.angle);
@@ -240,6 +252,7 @@
         private System.Windows.Forms.TextBox angle;
         private System.Windows.Forms.TrackBar angletrack;
         private System.Windows.Forms.Button executebutton;
+        private System.Windows.Forms.Button updatebutton;
     }
 }
 

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace pixelwashgui
 {
@@ -57,15 +59,25 @@ namespace pixelwashgui
         {
 
         }
+
+        private void updatebutton_Click(object sender, EventArgs e)
+        {
+            preview.ImageLocation = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
+            preview.Update();
+        }
+
+        //spit here
+
         public string inputpath = string.Empty;
+        public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
         public void OpenFileFunction()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
                 openFileDialog.InitialDirectory = (userpath + "/Downloads");
                 openFileDialog.Filter = "Image Files(*.png;*.jpg)|*.png;*.jpg|All files (*,*)|*,*";
-                openFileDialog.FilterIndex = 2;
+                openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = false;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -79,14 +91,20 @@ namespace pixelwashgui
         }
         public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue)
         {
+            Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui"));
+            string doubletick = "\"";
+            string completecommand = "/C python -m pixelsort " + doubletick + inputpath + doubletick +" -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png") + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue;
+            MessageBox.Show(completecommand);
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C python -m pixelsort " + inputpath + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue;
+            startInfo.Arguments = completecommand;
             process.StartInfo = startInfo;
             process.Start();
-            MessageBox.Show("/C python -m pixelsort " + inputpath + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue);
+
         }
+
+
     }
 }
