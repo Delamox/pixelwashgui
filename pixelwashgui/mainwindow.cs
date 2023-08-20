@@ -200,7 +200,7 @@ namespace pixelwashgui
             else if (lengthparse)
             {
                 int lengthvalueint = int.Parse(lengthvalue.Text);
-                if (lengthvalueint >= 0 && lengthvalueint <= 500)
+                if (lengthvalueint >= 1 && lengthvalueint <= 500)
                 {
                     lengthtrack.Value = lengthvalueint;
                 }
@@ -208,9 +208,9 @@ namespace pixelwashgui
                 {
                     lengthtrack.Value = 500;
                 }
-                else if (lengthvalueint < 0)
+                else if (lengthvalueint < 1)
                 {
-                    lengthtrack.Value = 0;
+                    lengthtrack.Value = 1;
                 }
             }
         }

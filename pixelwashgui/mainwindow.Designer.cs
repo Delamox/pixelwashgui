@@ -87,12 +87,14 @@
             // 
             this.lengthtrack.Location = new System.Drawing.Point(12, 130);
             this.lengthtrack.Maximum = 500;
+            this.lengthtrack.Minimum = 1;
             this.lengthtrack.Name = "lengthtrack";
             this.lengthtrack.Size = new System.Drawing.Size(156, 45);
             this.lengthtrack.SmallChange = 50;
             this.lengthtrack.TabIndex = 3;
             this.lengthtrack.TickFrequency = 50;
             this.lengthtrack.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.lengthtrack.Value = 1;
             this.lengthtrack.ValueChanged += new System.EventHandler(this.lengthtrack_ValueChanged);
             // 
             // randomnesstrack
@@ -159,7 +161,7 @@
             this.lengthvalue.Name = "lengthvalue";
             this.lengthvalue.Size = new System.Drawing.Size(75, 13);
             this.lengthvalue.TabIndex = 8;
-            this.lengthvalue.Text = "0";
+            this.lengthvalue.Text = "1";
             this.lengthvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lengthvalue.TextChanged += new System.EventHandler(this.lengthvalue_TextChanged);
             // 
