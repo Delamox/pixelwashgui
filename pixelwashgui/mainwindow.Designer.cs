@@ -49,7 +49,7 @@
             this.functiontrack = new System.Windows.Forms.TrackBar();
             this.preview = new System.Windows.Forms.PictureBox();
             this.staticpic = new System.Windows.Forms.PictureBox();
-            this.smallcontext = new System.Windows.Forms.TextBox();
+            this.status = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.angletrack)).BeginInit();
@@ -111,9 +111,11 @@
             // 
             this.randomness.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.randomness.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.randomness.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.randomness.ForeColor = System.Drawing.Color.White;
             this.randomness.Location = new System.Drawing.Point(12, 41);
             this.randomness.Name = "randomness";
+            this.randomness.ReadOnly = true;
             this.randomness.Size = new System.Drawing.Size(75, 13);
             this.randomness.TabIndex = 5;
             this.randomness.Text = "randomness";
@@ -123,9 +125,11 @@
             // 
             this.length.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.length.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.length.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.length.ForeColor = System.Drawing.Color.White;
             this.length.Location = new System.Drawing.Point(12, 111);
             this.length.Name = "length";
+            this.length.ReadOnly = true;
             this.length.Size = new System.Drawing.Size(75, 13);
             this.length.TabIndex = 6;
             this.length.Text = "length";
@@ -137,11 +141,13 @@
             this.randomnessvalue.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.randomnessvalue.ForeColor = System.Drawing.Color.White;
             this.randomnessvalue.Location = new System.Drawing.Point(93, 41);
+            this.randomnessvalue.MaxLength = 3;
             this.randomnessvalue.Name = "randomnessvalue";
             this.randomnessvalue.Size = new System.Drawing.Size(75, 13);
             this.randomnessvalue.TabIndex = 7;
             this.randomnessvalue.Text = "0";
             this.randomnessvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.randomnessvalue.TextChanged += new System.EventHandler(this.randomnessvalue_TextChanged);
             // 
             // lengthvalue
             // 
@@ -149,11 +155,13 @@
             this.lengthvalue.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lengthvalue.ForeColor = System.Drawing.Color.White;
             this.lengthvalue.Location = new System.Drawing.Point(93, 111);
+            this.lengthvalue.MaxLength = 3;
             this.lengthvalue.Name = "lengthvalue";
             this.lengthvalue.Size = new System.Drawing.Size(75, 13);
             this.lengthvalue.TabIndex = 8;
             this.lengthvalue.Text = "0";
             this.lengthvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.lengthvalue.TextChanged += new System.EventHandler(this.lengthvalue_TextChanged);
             // 
             // anglevalue
             // 
@@ -161,19 +169,23 @@
             this.anglevalue.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.anglevalue.ForeColor = System.Drawing.Color.White;
             this.anglevalue.Location = new System.Drawing.Point(93, 181);
+            this.anglevalue.MaxLength = 3;
             this.anglevalue.Name = "anglevalue";
             this.anglevalue.Size = new System.Drawing.Size(75, 13);
             this.anglevalue.TabIndex = 11;
             this.anglevalue.Text = "0";
             this.anglevalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.anglevalue.TextChanged += new System.EventHandler(this.anglevalue_TextChanged);
             // 
             // angle
             // 
             this.angle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.angle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.angle.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.angle.ForeColor = System.Drawing.Color.White;
             this.angle.Location = new System.Drawing.Point(12, 181);
             this.angle.Name = "angle";
+            this.angle.ReadOnly = true;
             this.angle.Size = new System.Drawing.Size(75, 13);
             this.angle.TabIndex = 10;
             this.angle.Text = "angle";
@@ -182,7 +194,7 @@
             // angletrack
             // 
             this.angletrack.Location = new System.Drawing.Point(12, 200);
-            this.angletrack.Maximum = 359;
+            this.angletrack.Maximum = 360;
             this.angletrack.Name = "angletrack";
             this.angletrack.Size = new System.Drawing.Size(156, 45);
             this.angletrack.SmallChange = 15;
@@ -199,7 +211,7 @@
             this.executebutton.Name = "executebutton";
             this.executebutton.Size = new System.Drawing.Size(75, 23);
             this.executebutton.TabIndex = 12;
-            this.executebutton.Text = "execute";
+            this.executebutton.Text = "pixelsort";
             this.executebutton.UseVisualStyleBackColor = false;
             this.executebutton.Click += new System.EventHandler(this.executebutton_Click);
             // 
@@ -207,9 +219,11 @@
             // 
             this.sortingvalue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.sortingvalue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.sortingvalue.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.sortingvalue.ForeColor = System.Drawing.Color.White;
             this.sortingvalue.Location = new System.Drawing.Point(93, 251);
             this.sortingvalue.Name = "sortingvalue";
+            this.sortingvalue.ReadOnly = true;
             this.sortingvalue.Size = new System.Drawing.Size(75, 13);
             this.sortingvalue.TabIndex = 16;
             this.sortingvalue.Text = "hue";
@@ -219,9 +233,11 @@
             // 
             this.sorting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.sorting.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.sorting.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.sorting.ForeColor = System.Drawing.Color.White;
             this.sorting.Location = new System.Drawing.Point(12, 251);
             this.sorting.Name = "sorting";
+            this.sorting.ReadOnly = true;
             this.sorting.Size = new System.Drawing.Size(75, 13);
             this.sorting.TabIndex = 15;
             this.sorting.Text = "sorting";
@@ -244,9 +260,11 @@
             // 
             this.functionvalue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.functionvalue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.functionvalue.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.functionvalue.ForeColor = System.Drawing.Color.White;
             this.functionvalue.Location = new System.Drawing.Point(93, 321);
             this.functionvalue.Name = "functionvalue";
+            this.functionvalue.ReadOnly = true;
             this.functionvalue.Size = new System.Drawing.Size(75, 13);
             this.functionvalue.TabIndex = 19;
             this.functionvalue.Text = "random";
@@ -256,9 +274,11 @@
             // 
             this.function.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.function.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.function.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.function.ForeColor = System.Drawing.Color.White;
             this.function.Location = new System.Drawing.Point(12, 321);
             this.function.Name = "function";
+            this.function.ReadOnly = true;
             this.function.Size = new System.Drawing.Size(75, 13);
             this.function.TabIndex = 18;
             this.function.Text = "function";
@@ -283,8 +303,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.preview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(62)))));
+            this.preview.ErrorImage = null;
             this.preview.ImageLocation = "";
-            this.preview.InitialImage = global::pixelwashgui.Properties.Resources.Snooze_80;
+            this.preview.InitialImage = null;
             this.preview.Location = new System.Drawing.Point(174, 12);
             this.preview.Name = "preview";
             this.preview.Size = new System.Drawing.Size(878, 564);
@@ -303,17 +324,18 @@
             this.staticpic.TabIndex = 20;
             this.staticpic.TabStop = false;
             // 
-            // smallcontext
+            // status
             // 
-            this.smallcontext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
-            this.smallcontext.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.smallcontext.ForeColor = System.Drawing.Color.White;
-            this.smallcontext.Location = new System.Drawing.Point(93, 396);
-            this.smallcontext.Name = "smallcontext";
-            this.smallcontext.Size = new System.Drawing.Size(75, 13);
-            this.smallcontext.TabIndex = 21;
-            this.smallcontext.Text = "v1.0.1 Delamox";
-            this.smallcontext.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.status.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.status.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.status.ForeColor = System.Drawing.Color.White;
+            this.status.Location = new System.Drawing.Point(93, 396);
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            this.status.Size = new System.Drawing.Size(75, 13);
+            this.status.TabIndex = 21;
+            this.status.Text = "v1.0.1 Delamox";
+            this.status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // mainwindow
             // 
@@ -321,7 +343,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(43)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1064, 588);
-            this.Controls.Add(this.smallcontext);
+            this.Controls.Add(this.status);
             this.Controls.Add(this.functionvalue);
             this.Controls.Add(this.function);
             this.Controls.Add(this.functiontrack);
@@ -380,7 +402,7 @@
         private System.Windows.Forms.TextBox function;
         private System.Windows.Forms.TrackBar functiontrack;
         private System.Windows.Forms.PictureBox staticpic;
-        private System.Windows.Forms.TextBox smallcontext;
+        private System.Windows.Forms.TextBox status;
     }
 }
 

@@ -26,6 +26,7 @@ namespace pixelwashgui
         private void Form1_Load(object sender, EventArgs e)
         {
             CreateFileWatcher();
+            status.Text = "Delamox v1.0.1";
         }
 
         private void openfile_MouseClick(object sender, MouseEventArgs e)
@@ -41,7 +42,6 @@ namespace pixelwashgui
         private void randomnesstrack_ValueChanged(object sender, EventArgs e)
         {
             randomnessvalue.Text = randomnesstrack.Value.ToString();
-            //codevar.ExecuteCommand();
         }
 
         private void lengthtrack_ValueChanged(object sender, EventArgs e)
@@ -66,6 +66,7 @@ namespace pixelwashgui
         public static string doubletick = "\"";
         public string[] sortingarray = { "hue", "lightness", "intensity", "minimum", "saturation" };
         public string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
+        
 
         public void CreateFileWatcher()
         {
@@ -83,7 +84,9 @@ namespace pixelwashgui
             {
                 preview.ImageLocation = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
                 preview.Update();
-                
+                status.Text = "Delamox v1.0.2";
+                status.ForeColor = Color.White;
+
             });
         }
         public void OpenFileFunction()
@@ -97,10 +100,18 @@ namespace pixelwashgui
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    inputpath = openFileDialog.FileName;
+                    string extensioncheck = Path.GetExtension(openFileDialog.FileName);
+                    if (extensioncheck == ".png" || extensioncheck == ".jpg")
+                    {
+                        inputpath = openFileDialog.FileName;
+                        preview.ImageLocation = inputpath;
+                        preview.Update();
+                    }
+                    else
+                    {
+                        MessageBox.Show("invalid file type, use either png or jpg files.");
+                    }
                 }
-                preview.ImageLocation = inputpath;
-                preview.Update();
             }
         }
         
@@ -126,18 +137,23 @@ namespace pixelwashgui
 
         public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue)
         {
-            Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui"));
-            sortingvalue = sortingarray[sortingtrack.Value - 1];
-            functionvalue = functionarray[functiontrack.Value - 1];
-            string completecommand = "/C python -m pixelsort "+doubletick+inputpath+doubletick+" -o "+doubletick+Path.Combine(userpath, "documents/pixelwashgui/tempwash.png")+doubletick+" -r "+randomvalue+" -c "+lengthvalue+" -a "+anglevalue+" -s "+sortingvalue+" -i "+functionvalue;
-            //MessageBox.Show(completecommand);
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = completecommand;
-            process.StartInfo = startInfo;
-            process.Start();
+            if (status.Text != "working" && inputpath != string.Empty)
+            {
+                status.Text = "working";
+                status.ForeColor = Color.Red;
+                Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui"));
+                sortingvalue = sortingarray[sortingtrack.Value - 1];
+                functionvalue = functionarray[functiontrack.Value - 1];
+                string completecommand = "/C python -m pixelsort " + doubletick + inputpath + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png") + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue;
+                //MessageBox.Show(completecommand);
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.FileName = "cmd.exe";
+                startInfo.Arguments = completecommand;
+                process.StartInfo = startInfo;
+                process.Start();
+            }
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
@@ -148,6 +164,75 @@ namespace pixelwashgui
         private void functiontrack_ValueChanged(object sender, EventArgs e)
         {
             functionvalue.Text = functionarray[functiontrack.Value - 1];
+        }
+
+        private void randomnessvalue_TextChanged(object sender, EventArgs e)
+        {
+            int IgnoreMe = 0;
+            bool randomparse = int.TryParse(randomnessvalue.Text, out IgnoreMe);
+            if (randomnessvalue.Text == "") { }
+            else if (randomparse)
+            {
+                int randomnessvalueint = int.Parse(randomnessvalue.Text);
+                if (randomnessvalueint >= 0 && randomnessvalueint <= 100)
+                {
+                    randomnesstrack.Value = randomnessvalueint;
+                }
+                else if (randomnessvalueint > 100)
+                {
+                    randomnesstrack.Value = 100;
+                }
+                else if (randomnessvalueint < 0)
+                {
+                    randomnesstrack.Value = 0;
+                }
+            }
+        }
+        
+        private void lengthvalue_TextChanged(object sender, EventArgs e)
+        {
+            int IgnoreMe = 0;
+            bool lengthparse = int.TryParse(lengthvalue.Text, out IgnoreMe);
+            if (lengthvalue.Text == "") { }
+            else if (lengthparse)
+            {
+                int lengthvalueint = int.Parse(lengthvalue.Text);
+                if (lengthvalueint >= 0 && lengthvalueint <= 500)
+                {
+                    lengthtrack.Value = lengthvalueint;
+                }
+                else if (lengthvalueint > 500)
+                {
+                    lengthtrack.Value = 500;
+                }
+                else if (lengthvalueint < 0)
+                {
+                    lengthtrack.Value = 0;
+                }
+            }
+        }
+
+        private void anglevalue_TextChanged(object sender, EventArgs e)
+        {
+            int IgnoreMe = 0;
+            bool angleparse = int.TryParse(anglevalue.Text, out IgnoreMe);
+            if (anglevalue.Text == "") { }
+            else if (angleparse)
+            {
+                int anglevalueint = int.Parse(anglevalue.Text);
+                if (anglevalueint >= 0 && anglevalueint <= 360)
+                {
+                    angletrack.Value = anglevalueint;
+                }
+                else if (anglevalueint > 360)
+                {
+                    angletrack.Value = 360;
+                }
+                else if (anglevalueint < 0)
+                {
+                    angletrack.Value = 0;
+                }
+            }
         }
     }
 }
