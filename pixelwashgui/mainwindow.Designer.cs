@@ -50,6 +50,12 @@
             this.preview = new System.Windows.Forms.PictureBox();
             this.staticpic = new System.Windows.Forms.PictureBox();
             this.status = new System.Windows.Forms.TextBox();
+            this.lowthresholdvalue = new System.Windows.Forms.TextBox();
+            this.lowthreshold = new System.Windows.Forms.TextBox();
+            this.lowthresholdtrack = new System.Windows.Forms.TrackBar();
+            this.upperthresholdvalue = new System.Windows.Forms.TextBox();
+            this.upperthreshold = new System.Windows.Forms.TextBox();
+            this.upperthresholdtrack = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.angletrack)).BeginInit();
@@ -57,6 +63,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.functiontrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.preview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staticpic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lowthresholdtrack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.upperthresholdtrack)).BeginInit();
             this.SuspendLayout();
             // 
             // openfile
@@ -85,6 +93,7 @@
             // 
             // lengthtrack
             // 
+            this.lengthtrack.LargeChange = 50;
             this.lengthtrack.Location = new System.Drawing.Point(12, 130);
             this.lengthtrack.Maximum = 500;
             this.lengthtrack.Minimum = 1;
@@ -99,6 +108,8 @@
             // 
             // randomnesstrack
             // 
+            this.randomnesstrack.Cursor = System.Windows.Forms.Cursors.Default;
+            this.randomnesstrack.LargeChange = 10;
             this.randomnesstrack.Location = new System.Drawing.Point(12, 60);
             this.randomnesstrack.Maximum = 100;
             this.randomnesstrack.Name = "randomnesstrack";
@@ -195,6 +206,7 @@
             // 
             // angletrack
             // 
+            this.angletrack.LargeChange = 15;
             this.angletrack.Location = new System.Drawing.Point(12, 200);
             this.angletrack.Maximum = 360;
             this.angletrack.Name = "angletrack";
@@ -209,7 +221,7 @@
             // 
             this.executebutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.executebutton.ForeColor = System.Drawing.Color.White;
-            this.executebutton.Location = new System.Drawing.Point(12, 391);
+            this.executebutton.Location = new System.Drawing.Point(12, 531);
             this.executebutton.Name = "executebutton";
             this.executebutton.Size = new System.Drawing.Size(75, 23);
             this.executebutton.TabIndex = 12;
@@ -247,12 +259,12 @@
             // 
             // sortingtrack
             // 
+            this.sortingtrack.LargeChange = 1;
             this.sortingtrack.Location = new System.Drawing.Point(12, 270);
             this.sortingtrack.Maximum = 5;
             this.sortingtrack.Minimum = 1;
             this.sortingtrack.Name = "sortingtrack";
             this.sortingtrack.Size = new System.Drawing.Size(156, 45);
-            this.sortingtrack.SmallChange = 15;
             this.sortingtrack.TabIndex = 14;
             this.sortingtrack.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.sortingtrack.Value = 1;
@@ -288,12 +300,12 @@
             // 
             // functiontrack
             // 
+            this.functiontrack.LargeChange = 1;
             this.functiontrack.Location = new System.Drawing.Point(12, 340);
             this.functiontrack.Maximum = 7;
             this.functiontrack.Minimum = 1;
             this.functiontrack.Name = "functiontrack";
             this.functiontrack.Size = new System.Drawing.Size(156, 45);
-            this.functiontrack.SmallChange = 15;
             this.functiontrack.TabIndex = 17;
             this.functiontrack.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.functiontrack.Value = 1;
@@ -310,7 +322,7 @@
             this.preview.InitialImage = null;
             this.preview.Location = new System.Drawing.Point(174, 12);
             this.preview.Name = "preview";
-            this.preview.Size = new System.Drawing.Size(878, 564);
+            this.preview.Size = new System.Drawing.Size(948, 704);
             this.preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.preview.TabIndex = 0;
             this.preview.TabStop = false;
@@ -319,7 +331,7 @@
             // 
             this.staticpic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.staticpic.Image = global::pixelwashgui.Properties.Resources._34042825;
-            this.staticpic.Location = new System.Drawing.Point(12, 420);
+            this.staticpic.Location = new System.Drawing.Point(12, 560);
             this.staticpic.Name = "staticpic";
             this.staticpic.Size = new System.Drawing.Size(156, 156);
             this.staticpic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -331,7 +343,7 @@
             this.status.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.status.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.status.ForeColor = System.Drawing.Color.White;
-            this.status.Location = new System.Drawing.Point(93, 396);
+            this.status.Location = new System.Drawing.Point(93, 536);
             this.status.Name = "status";
             this.status.ReadOnly = true;
             this.status.Size = new System.Drawing.Size(75, 13);
@@ -339,13 +351,104 @@
             this.status.Text = "v+Delamox";
             this.status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // lowthresholdvalue
+            // 
+            this.lowthresholdvalue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.lowthresholdvalue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lowthresholdvalue.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.lowthresholdvalue.ForeColor = System.Drawing.Color.White;
+            this.lowthresholdvalue.Location = new System.Drawing.Point(93, 391);
+            this.lowthresholdvalue.MaxLength = 3;
+            this.lowthresholdvalue.Name = "lowthresholdvalue";
+            this.lowthresholdvalue.Size = new System.Drawing.Size(75, 13);
+            this.lowthresholdvalue.TabIndex = 24;
+            this.lowthresholdvalue.Text = "0";
+            this.lowthresholdvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.lowthresholdvalue.TextChanged += new System.EventHandler(this.lowthresholdvalue_TextChanged);
+            // 
+            // lowthreshold
+            // 
+            this.lowthreshold.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.lowthreshold.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lowthreshold.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.lowthreshold.ForeColor = System.Drawing.Color.White;
+            this.lowthreshold.Location = new System.Drawing.Point(12, 391);
+            this.lowthreshold.Name = "lowthreshold";
+            this.lowthreshold.ReadOnly = true;
+            this.lowthreshold.Size = new System.Drawing.Size(75, 13);
+            this.lowthreshold.TabIndex = 23;
+            this.lowthreshold.Text = "lower threshold";
+            this.lowthreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lowthresholdtrack
+            // 
+            this.lowthresholdtrack.LargeChange = 10;
+            this.lowthresholdtrack.Location = new System.Drawing.Point(12, 410);
+            this.lowthresholdtrack.Maximum = 100;
+            this.lowthresholdtrack.Name = "lowthresholdtrack";
+            this.lowthresholdtrack.Size = new System.Drawing.Size(156, 45);
+            this.lowthresholdtrack.SmallChange = 10;
+            this.lowthresholdtrack.TabIndex = 22;
+            this.lowthresholdtrack.TickFrequency = 10;
+            this.lowthresholdtrack.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.lowthresholdtrack.ValueChanged += new System.EventHandler(this.lowthresholdtrack_ValueChanged);
+            // 
+            // upperthresholdvalue
+            // 
+            this.upperthresholdvalue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.upperthresholdvalue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.upperthresholdvalue.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.upperthresholdvalue.ForeColor = System.Drawing.Color.White;
+            this.upperthresholdvalue.Location = new System.Drawing.Point(93, 461);
+            this.upperthresholdvalue.MaxLength = 3;
+            this.upperthresholdvalue.Name = "upperthresholdvalue";
+            this.upperthresholdvalue.Size = new System.Drawing.Size(75, 13);
+            this.upperthresholdvalue.TabIndex = 27;
+            this.upperthresholdvalue.Text = "100";
+            this.upperthresholdvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.upperthresholdvalue.TextChanged += new System.EventHandler(this.upperthresholdvalue_TextChanged);
+            // 
+            // upperthreshold
+            // 
+            this.upperthreshold.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.upperthreshold.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.upperthreshold.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.upperthreshold.ForeColor = System.Drawing.Color.White;
+            this.upperthreshold.Location = new System.Drawing.Point(12, 461);
+            this.upperthreshold.Name = "upperthreshold";
+            this.upperthreshold.ReadOnly = true;
+            this.upperthreshold.Size = new System.Drawing.Size(75, 13);
+            this.upperthreshold.TabIndex = 26;
+            this.upperthreshold.Text = "upper threshold";
+            this.upperthreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // upperthresholdtrack
+            // 
+            this.upperthresholdtrack.LargeChange = 10;
+            this.upperthresholdtrack.Location = new System.Drawing.Point(12, 480);
+            this.upperthresholdtrack.Maximum = 100;
+            this.upperthresholdtrack.Name = "upperthresholdtrack";
+            this.upperthresholdtrack.Size = new System.Drawing.Size(156, 45);
+            this.upperthresholdtrack.SmallChange = 10;
+            this.upperthresholdtrack.TabIndex = 25;
+            this.upperthresholdtrack.TickFrequency = 10;
+            this.upperthresholdtrack.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.upperthresholdtrack.Value = 100;
+            this.upperthresholdtrack.ValueChanged += new System.EventHandler(this.upperthresholdtrack_ValueChanged);
+            // 
             // mainwindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(43)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(1064, 588);
+            this.ClientSize = new System.Drawing.Size(1134, 728);
+            this.Controls.Add(this.upperthresholdvalue);
+            this.Controls.Add(this.upperthreshold);
+            this.Controls.Add(this.upperthresholdtrack);
+            this.Controls.Add(this.lowthresholdvalue);
+            this.Controls.Add(this.lowthreshold);
+            this.Controls.Add(this.lowthresholdtrack);
             this.Controls.Add(this.status);
             this.Controls.Add(this.functionvalue);
             this.Controls.Add(this.function);
@@ -380,6 +483,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.functiontrack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.preview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staticpic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lowthresholdtrack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.upperthresholdtrack)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -408,6 +513,12 @@
         private System.Windows.Forms.TrackBar functiontrack;
         private System.Windows.Forms.PictureBox staticpic;
         private System.Windows.Forms.TextBox status;
+        private System.Windows.Forms.TextBox lowthresholdvalue;
+        private System.Windows.Forms.TextBox lowthreshold;
+        private System.Windows.Forms.TrackBar lowthresholdtrack;
+        private System.Windows.Forms.TextBox upperthresholdvalue;
+        private System.Windows.Forms.TextBox upperthreshold;
+        private System.Windows.Forms.TrackBar upperthresholdtrack;
     }
 }
 

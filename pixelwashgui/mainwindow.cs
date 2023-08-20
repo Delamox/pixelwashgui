@@ -21,6 +21,7 @@ namespace pixelwashgui
 {
     public partial class mainwindow : Form
     {
+        //init
         public mainwindow()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace pixelwashgui
             status.Text = version + " Delamox";
             Text = "pixelwash " + version;
         }
-
+        //function calls
         private void openfile_MouseClick(object sender, MouseEventArgs e)
         {
             OpenFileFunction();
@@ -42,35 +43,171 @@ namespace pixelwashgui
         {
             SaveFileFunction();
         }
-
+        
+        private void executebutton_Click(object sender, EventArgs e)
+        {
+            ExecuteCommand(randomnesstrack.Value, lengthtrack.Value, angletrack.Value, sortingtrack.Value.ToString(), functiontrack.Value.ToString(), lowthresholdtrack.Value, upperthresholdtrack.Value);
+        }
+        //valuehandlers
+            //randomnessvaluehandler
         private void randomnesstrack_ValueChanged(object sender, EventArgs e)
         {
             randomnessvalue.Text = randomnesstrack.Value.ToString();
         }
 
+        private void randomnessvalue_TextChanged(object sender, EventArgs e)
+        {
+            int IgnoreMe = 0;
+            bool randomparse = int.TryParse(randomnessvalue.Text, out IgnoreMe);
+            if (randomnessvalue.Text == "") { }
+            else if (randomparse)
+            {
+                int randomnessvalueint = int.Parse(randomnessvalue.Text);
+                if (randomnessvalueint >= 0 && randomnessvalueint <= 100)
+                {
+                    randomnesstrack.Value = randomnessvalueint;
+                }
+                else if (randomnessvalueint > 100)
+                {
+                    randomnesstrack.Value = 100;
+                }
+                else if (randomnessvalueint < 0)
+                {
+                    randomnesstrack.Value = 0;
+                }
+            }
+        }
+            //lengthvaluehandler
         private void lengthtrack_ValueChanged(object sender, EventArgs e)
         {
             lengthvalue.Text = lengthtrack.Value.ToString();
         }
 
+        private void lengthvalue_TextChanged(object sender, EventArgs e)
+        {
+            int IgnoreMe = 0;
+            bool lengthparse = int.TryParse(lengthvalue.Text, out IgnoreMe);
+            if (lengthvalue.Text == "") { }
+            else if (lengthparse)
+            {
+                int lengthvalueint = int.Parse(lengthvalue.Text);
+                if (lengthvalueint >= 1 && lengthvalueint <= 500)
+                {
+                    lengthtrack.Value = lengthvalueint;
+                }
+                else if (lengthvalueint > 500)
+                {
+                    lengthtrack.Value = 500;
+                }
+                else if (lengthvalueint < 1)
+                {
+                    lengthtrack.Value = 1;
+                }
+            }
+        }
+            //anglevaluehandler
         private void angletrack_ValueChanged(object sender, EventArgs e)
         {
             anglevalue.Text = angletrack.Value.ToString();
         }
 
-        private void executebutton_Click(object sender, EventArgs e)
+        private void anglevalue_TextChanged(object sender, EventArgs e)
         {
-            ExecuteCommand(randomnesstrack.Value, lengthtrack.Value, angletrack.Value, sortingtrack.Value.ToString(), functiontrack.Value.ToString());
+            int IgnoreMe = 0;
+            bool angleparse = int.TryParse(anglevalue.Text, out IgnoreMe);
+            if (anglevalue.Text == "") { }
+            else if (angleparse)
+            {
+                int anglevalueint = int.Parse(anglevalue.Text);
+                if (anglevalueint >= 0 && anglevalueint <= 360)
+                {
+                    angletrack.Value = anglevalueint;
+                }
+                else if (anglevalueint > 360)
+                {
+                    angletrack.Value = 360;
+                }
+                else if (anglevalueint < 0)
+                {
+                    angletrack.Value = 0;
+                }
+            }
+        }
+        
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            sortingvalue.Text = sortingarray[sortingtrack.Value - 1];
         }
 
-        //split here
-        public static string version = "v1.0.3";
+        private void functiontrack_ValueChanged(object sender, EventArgs e)
+        {
+            functionvalue.Text = functionarray[functiontrack.Value - 1];
+        }
+            //lowthresholdvaluehandler
+        private void lowthresholdtrack_ValueChanged(object sender, EventArgs e)
+        {
+            lowthresholdvalue.Text = lowthresholdtrack.Value.ToString();
+        }
+        private void lowthresholdvalue_TextChanged(object sender, EventArgs e)
+        {
+            int IgnoreMe = 0;
+            bool lowthresholdparse = int.TryParse(lowthresholdvalue.Text, out IgnoreMe);
+            if (lowthresholdvalue.Text == "") { }
+            else if (lowthresholdparse)
+            {
+                int lowthresholdvalueint = int.Parse(lowthresholdvalue.Text);
+                if (lowthresholdvalueint >= 0 && lowthresholdvalueint <= 100)
+                {
+                    lowthresholdtrack.Value = lowthresholdvalueint;
+                }
+                else if (lowthresholdvalueint > 100)
+                {
+                    lowthresholdtrack.Value = 100;
+                }
+                else if (lowthresholdvalueint < 0)
+                {
+                    lowthresholdtrack.Value = 0;
+                }
+            }
+        }
+
+        private void upperthresholdtrack_ValueChanged(object sender, EventArgs e)
+        {
+            upperthresholdvalue.Text = upperthresholdtrack.Value.ToString();
+        }
+
+        private void upperthresholdvalue_TextChanged(object sender, EventArgs e)
+        {
+            int IgnoreMe = 0;
+            bool upperthresholdparse = int.TryParse(upperthresholdvalue.Text, out IgnoreMe);
+            if (upperthresholdvalue.Text == "") { }
+            else if (upperthresholdparse)
+            {
+                int upperthresholdvalueint = int.Parse(upperthresholdvalue.Text);
+                if (upperthresholdvalueint >= 0 && upperthresholdvalueint <= 100)
+                {
+                    upperthresholdtrack.Value = upperthresholdvalueint;
+                }
+                else if (upperthresholdvalueint > 100)
+                {
+                    upperthresholdtrack.Value = 100;
+                }
+                else if (upperthresholdvalueint < 0)
+                {
+                    upperthresholdtrack.Value = 0;
+                }
+            }
+        }
+        //variables
+        public static string version = "v1.0.4";
         public string inputpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
         public string[] sortingarray = { "hue", "lightness", "intensity", "minimum", "saturation" };
         public string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
 
+        //function code
+            //filewatcherinit
         public void CreateFileWatcher()
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
@@ -80,7 +217,7 @@ namespace pixelwashgui
             watcher.Changed += new FileSystemEventHandler(OnChanged);
             watcher.EnableRaisingEvents = true;
         }
-
+            //imageautoupdateevent
         public void OnChanged(object source, FileSystemEventArgs e)
         {
             preview.Invoke((MethodInvoker)delegate
@@ -92,6 +229,7 @@ namespace pixelwashgui
 
             });
         }
+            //openfiledialoghandler
         public void OpenFileFunction()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -117,7 +255,7 @@ namespace pixelwashgui
                 }
             }
         }
-        
+            //savefiledialoghandler
         public void SaveFileFunction()
         {
             {
@@ -137,8 +275,8 @@ namespace pixelwashgui
                 }
             }
         }
-
-        public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue)
+            //pixelsortcommunicator
+        public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue, int lowerthresholdvalue, int upperthresholdvalue)
         {
             if (status.Text != "working" && inputpath != string.Empty)
             {
@@ -147,7 +285,8 @@ namespace pixelwashgui
                 Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui"));
                 sortingvalue = sortingarray[sortingtrack.Value - 1];
                 functionvalue = functionarray[functiontrack.Value - 1];
-                string completecommand = "/C python -m pixelsort " + doubletick + inputpath + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png") + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue;
+                string completecommand = "/C python -m pixelsort " + doubletick + inputpath + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png")
+                    + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue;
                 //MessageBox.Show(completecommand);
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
@@ -158,86 +297,7 @@ namespace pixelwashgui
                 process.Start();
             }
         }
-
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
-        {
-            sortingvalue.Text = sortingarray[sortingtrack.Value - 1];
-        }
-
-        private void functiontrack_ValueChanged(object sender, EventArgs e)
-        {
-            functionvalue.Text = functionarray[functiontrack.Value - 1];
-        }
-
-        private void randomnessvalue_TextChanged(object sender, EventArgs e)
-        {
-            int IgnoreMe = 0;
-            bool randomparse = int.TryParse(randomnessvalue.Text, out IgnoreMe);
-            if (randomnessvalue.Text == "") { }
-            else if (randomparse)
-            {
-                int randomnessvalueint = int.Parse(randomnessvalue.Text);
-                if (randomnessvalueint >= 0 && randomnessvalueint <= 100)
-                {
-                    randomnesstrack.Value = randomnessvalueint;
-                }
-                else if (randomnessvalueint > 100)
-                {
-                    randomnesstrack.Value = 100;
-                }
-                else if (randomnessvalueint < 0)
-                {
-                    randomnesstrack.Value = 0;
-                }
-            }
-        }
-
-        private void lengthvalue_TextChanged(object sender, EventArgs e)
-        {
-            int IgnoreMe = 0;
-            bool lengthparse = int.TryParse(lengthvalue.Text, out IgnoreMe);
-            if (lengthvalue.Text == "") { }
-            else if (lengthparse)
-            {
-                int lengthvalueint = int.Parse(lengthvalue.Text);
-                if (lengthvalueint >= 1 && lengthvalueint <= 500)
-                {
-                    lengthtrack.Value = lengthvalueint;
-                }
-                else if (lengthvalueint > 500)
-                {
-                    lengthtrack.Value = 500;
-                }
-                else if (lengthvalueint < 1)
-                {
-                    lengthtrack.Value = 1;
-                }
-            }
-        }
-
-        private void anglevalue_TextChanged(object sender, EventArgs e)
-        {
-            int IgnoreMe = 0;
-            bool angleparse = int.TryParse(anglevalue.Text, out IgnoreMe);
-            if (anglevalue.Text == "") { }
-            else if (angleparse)
-            {
-                int anglevalueint = int.Parse(anglevalue.Text);
-                if (anglevalueint >= 0 && anglevalueint <= 360)
-                {
-                    angletrack.Value = anglevalueint;
-                }
-                else if (anglevalueint > 360)
-                {
-                    angletrack.Value = 360;
-                }
-                else if (anglevalueint < 0)
-                {
-                    angletrack.Value = 0;
-                }
-            }
-        }
-
+            //draganddrophandler
         private void mainwindow_DragDrop(object sender, DragEventArgs e)
         {
             string[] dragdropinput = (string[])e.Data.GetData(DataFormats.FileDrop);
