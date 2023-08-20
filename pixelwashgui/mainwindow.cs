@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Management.Automation;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Windows.Forms.VisualStyles;
 
 namespace pixelwashgui
 {
@@ -26,7 +29,8 @@ namespace pixelwashgui
         private void Form1_Load(object sender, EventArgs e)
         {
             CreateFileWatcher();
-            status.Text = "Delamox v1.0.2";
+            status.Text = version + " Delamox";
+            Text = "pixelwash " + version;
         }
 
         private void openfile_MouseClick(object sender, MouseEventArgs e)
@@ -58,15 +62,14 @@ namespace pixelwashgui
         {
             ExecuteCommand(randomnesstrack.Value, lengthtrack.Value, angletrack.Value, sortingtrack.Value.ToString(), functiontrack.Value.ToString());
         }
-       
-        //split here
 
+        //split here
+        public static string version = "v1.0.3";
         public string inputpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
         public string[] sortingarray = { "hue", "lightness", "intensity", "minimum", "saturation" };
         public string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
-        
 
         public void CreateFileWatcher()
         {
@@ -84,7 +87,7 @@ namespace pixelwashgui
             {
                 preview.ImageLocation = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
                 preview.Update();
-                status.Text = "Delamox v1.0.2";
+                status.Text = version+" Delamox";
                 status.ForeColor = Color.White;
 
             });
@@ -188,7 +191,7 @@ namespace pixelwashgui
                 }
             }
         }
-        
+
         private void lengthvalue_TextChanged(object sender, EventArgs e)
         {
             int IgnoreMe = 0;
@@ -232,6 +235,30 @@ namespace pixelwashgui
                 {
                     angletrack.Value = 0;
                 }
+            }
+        }
+
+        private void mainwindow_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] dragdropinput = (string[])e.Data.GetData(DataFormats.FileDrop);
+            string extensioncheck = Path.GetExtension(dragdropinput[0]);
+            if (extensioncheck == ".png" || extensioncheck == ".jpg")
+            {
+                inputpath = dragdropinput[0];
+                preview.ImageLocation = inputpath;
+                preview.Update();
+            }
+            else
+            {
+                MessageBox.Show("invalid file type, use either png or jpg files.");
+            }
+        }
+
+        private void mainwindow_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, false) == true)
+            {
+                e.Effect = DragDropEffects.All;
             }
         }
     }

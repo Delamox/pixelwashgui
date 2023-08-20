@@ -334,11 +334,12 @@
             this.status.ReadOnly = true;
             this.status.Size = new System.Drawing.Size(75, 13);
             this.status.TabIndex = 21;
-            this.status.Text = "v1.0.2 Delamox";
+            this.status.Text = "v+Delamox";
             this.status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // mainwindow
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(43)))), ((int)(((byte)(48)))));
@@ -366,8 +367,10 @@
             this.Controls.Add(this.staticpic);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainwindow";
-            this.Text = "pixelwash";
+            this.Text = "pixelwash+v";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.mainwindow_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.mainwindow_DragEnter);
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.angletrack)).EndInit();
