@@ -1,5 +1,5 @@
 # pixelwashgui
-Standalone GUI addon for https://github.com/satyarth/pixelsort/, make sure it is installed correctly. 
+Standalone GUI addon for https://github.com/satyarth/pixelsort/.
 
 ## installation:
 
