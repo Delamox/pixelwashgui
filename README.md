@@ -9,7 +9,7 @@ Standalone GUI addon for https://github.com/satyarth/pixelsort/, make sure it is
 
 ## usage:
 
-1) open pixelwashguivX.X.X.exe
+1) open the downloaded .exe file.
 2) click 'open file' and select either a .jpg or a .png file.
 3) adjust the sliders, visit https://github.com/satyarth/pixelsort/ for a more detailed explanation.
 4) click 'pixelsort' and wait until the generated image shows up.
