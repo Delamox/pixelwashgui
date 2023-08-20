@@ -26,7 +26,7 @@ namespace pixelwashgui
         private void Form1_Load(object sender, EventArgs e)
         {
             CreateFileWatcher();
-            status.Text = "Delamox v1.0.1";
+            status.Text = "Delamox v1.0.2";
         }
 
         private void openfile_MouseClick(object sender, MouseEventArgs e)

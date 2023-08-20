@@ -334,7 +334,7 @@
             this.status.ReadOnly = true;
             this.status.Size = new System.Drawing.Size(75, 13);
             this.status.TabIndex = 21;
-            this.status.Text = "v1.0.1 Delamox";
+            this.status.Text = "v1.0.2 Delamox";
             this.status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // mainwindow
