@@ -1,16 +1,13 @@
 # pixelwashgui
 Standalone GUI addon for https://github.com/satyarth/pixelsort/, make sure it is installed correctly. 
 
-##installation:
+## installation:
 
 1) download and install: https://www.python.org/downloads/ if you haven't already.
-2) download satyarth's pixelsorter:
-   ```
-   pip install pixelsorter
-   ```
+2) download satyarth's pixelsorter: `pip install pixelsorter` in cmd
 3) download lastest .exe from https://github.com/Delamox/pixelwashgui/releases
 
-##usage:
+## usage:
 
 1) open pixelwashguivX.X.X.exe
 2) click 'open file' and select either a .jpg or a .png file.
