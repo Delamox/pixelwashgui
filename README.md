@@ -3,7 +3,7 @@ Standalone GUI addon for https://github.com/satyarth/pixelsort/.
 
 ## installation:
 
-1) download and install: https://www.python.org/downloads/ if you haven't already.
+1) download and install: https://www.python.org/downloads/ if you haven't already, make sure to tick the 'add to PATH' option in the installer.
 2) download satyarth's pixelsorter: `pip install pixelsorter` in cmd.
 3) download lastest .exe from https://github.com/Delamox/pixelwashgui/releases.
 
