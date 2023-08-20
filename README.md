@@ -1,2 +1,2 @@
 # pixelwashgui
-requires https://github.com/satyarth/pixelsort/ to be installed properly.
+Standalone GUI addon for https://github.com/satyarth/pixelsort/, make sure it and python are installed properly.
