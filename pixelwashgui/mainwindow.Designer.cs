@@ -56,6 +56,10 @@
             this.upperthresholdvalue = new System.Windows.Forms.TextBox();
             this.upperthreshold = new System.Windows.Forms.TextBox();
             this.upperthresholdtrack = new System.Windows.Forms.TrackBar();
+            this.videoframetrack = new System.Windows.Forms.TrackBar();
+            this.videoframevalue = new System.Windows.Forms.TextBox();
+            this.videoframe = new System.Windows.Forms.TextBox();
+            this.executevideo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.angletrack)).BeginInit();
@@ -65,6 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.staticpic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lowthresholdtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.upperthresholdtrack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.videoframetrack)).BeginInit();
             this.SuspendLayout();
             // 
             // openfile
@@ -221,7 +226,7 @@
             // 
             this.executebutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.executebutton.ForeColor = System.Drawing.Color.White;
-            this.executebutton.Location = new System.Drawing.Point(12, 531);
+            this.executebutton.Location = new System.Drawing.Point(12, 655);
             this.executebutton.Name = "executebutton";
             this.executebutton.Size = new System.Drawing.Size(75, 23);
             this.executebutton.TabIndex = 12;
@@ -322,7 +327,7 @@
             this.preview.InitialImage = null;
             this.preview.Location = new System.Drawing.Point(174, 12);
             this.preview.Name = "preview";
-            this.preview.Size = new System.Drawing.Size(948, 704);
+            this.preview.Size = new System.Drawing.Size(1208, 828);
             this.preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.preview.TabIndex = 0;
             this.preview.TabStop = false;
@@ -331,7 +336,7 @@
             // 
             this.staticpic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.staticpic.Image = global::pixelwashgui.Properties.Resources._34042825;
-            this.staticpic.Location = new System.Drawing.Point(12, 560);
+            this.staticpic.Location = new System.Drawing.Point(12, 684);
             this.staticpic.Name = "staticpic";
             this.staticpic.Size = new System.Drawing.Size(156, 156);
             this.staticpic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -343,7 +348,7 @@
             this.status.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.status.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.status.ForeColor = System.Drawing.Color.White;
-            this.status.Location = new System.Drawing.Point(93, 536);
+            this.status.Location = new System.Drawing.Point(93, 660);
             this.status.Name = "status";
             this.status.ReadOnly = true;
             this.status.Size = new System.Drawing.Size(75, 13);
@@ -436,13 +441,72 @@
             this.upperthresholdtrack.Value = 100;
             this.upperthresholdtrack.ValueChanged += new System.EventHandler(this.upperthresholdtrack_ValueChanged);
             // 
+            // videoframetrack
+            // 
+            this.videoframetrack.LargeChange = 1;
+            this.videoframetrack.Location = new System.Drawing.Point(12, 550);
+            this.videoframetrack.Maximum = 1;
+            this.videoframetrack.Minimum = 1;
+            this.videoframetrack.Name = "videoframetrack";
+            this.videoframetrack.Size = new System.Drawing.Size(156, 45);
+            this.videoframetrack.TabIndex = 28;
+            this.videoframetrack.TickFrequency = 100;
+            this.videoframetrack.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.videoframetrack.Value = 1;
+            this.videoframetrack.ValueChanged += new System.EventHandler(this.videoframetrack_ValueChanged);
+            // 
+            // videoframevalue
+            // 
+            this.videoframevalue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.videoframevalue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.videoframevalue.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.videoframevalue.ForeColor = System.Drawing.Color.White;
+            this.videoframevalue.Location = new System.Drawing.Point(93, 531);
+            this.videoframevalue.MaxLength = 3;
+            this.videoframevalue.Name = "videoframevalue";
+            this.videoframevalue.Size = new System.Drawing.Size(75, 13);
+            this.videoframevalue.TabIndex = 30;
+            this.videoframevalue.Text = "1";
+            this.videoframevalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.videoframevalue.TextChanged += new System.EventHandler(this.videoframevalue_TextChanged);
+            // 
+            // videoframe
+            // 
+            this.videoframe.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.videoframe.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.videoframe.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.videoframe.ForeColor = System.Drawing.Color.White;
+            this.videoframe.Location = new System.Drawing.Point(12, 531);
+            this.videoframe.Name = "videoframe";
+            this.videoframe.ReadOnly = true;
+            this.videoframe.Size = new System.Drawing.Size(75, 13);
+            this.videoframe.TabIndex = 29;
+            this.videoframe.Text = "video frame";
+            this.videoframe.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // executevideo
+            // 
+            this.executevideo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.executevideo.ForeColor = System.Drawing.Color.White;
+            this.executevideo.Location = new System.Drawing.Point(12, 626);
+            this.executevideo.Name = "executevideo";
+            this.executevideo.Size = new System.Drawing.Size(75, 23);
+            this.executevideo.TabIndex = 31;
+            this.executevideo.Text = "videosort";
+            this.executevideo.UseVisualStyleBackColor = false;
+            this.executevideo.Click += new System.EventHandler(this.executevideo_Click);
+            // 
             // mainwindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(43)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(1134, 728);
+            this.ClientSize = new System.Drawing.Size(1394, 852);
+            this.Controls.Add(this.executevideo);
+            this.Controls.Add(this.videoframevalue);
+            this.Controls.Add(this.videoframe);
+            this.Controls.Add(this.videoframetrack);
             this.Controls.Add(this.upperthresholdvalue);
             this.Controls.Add(this.upperthreshold);
             this.Controls.Add(this.upperthresholdtrack);
@@ -485,6 +549,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.staticpic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lowthresholdtrack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.upperthresholdtrack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.videoframetrack)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -519,6 +584,10 @@
         private System.Windows.Forms.TextBox upperthresholdvalue;
         private System.Windows.Forms.TextBox upperthreshold;
         private System.Windows.Forms.TrackBar upperthresholdtrack;
+        private System.Windows.Forms.TrackBar videoframetrack;
+        private System.Windows.Forms.TextBox videoframevalue;
+        private System.Windows.Forms.TextBox videoframe;
+        private System.Windows.Forms.Button executevideo;
     }
 }
 

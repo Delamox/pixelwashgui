@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Text;
@@ -29,7 +30,6 @@ namespace pixelwashgui
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            CreateFileWatcher();
             status.Text = version + " Delamox";
             Text = "pixelwash " + version;
         }
@@ -48,8 +48,13 @@ namespace pixelwashgui
         {
             ExecuteCommand(randomnesstrack.Value, lengthtrack.Value, angletrack.Value, sortingtrack.Value.ToString(), functiontrack.Value.ToString(), lowthresholdtrack.Value, upperthresholdtrack.Value);
         }
+
+        private void executevideo_Click(object sender, EventArgs e)
+        {
+            ExecuteCommandVideo(randomnesstrack.Value, lengthtrack.Value, angletrack.Value, sortingtrack.Value.ToString(), functiontrack.Value.ToString(), lowthresholdtrack.Value, upperthresholdtrack.Value);
+        }
         //valuehandlers
-            //randomnessvaluehandler
+        //randomnessvaluehandler
         private void randomnesstrack_ValueChanged(object sender, EventArgs e)
         {
             randomnessvalue.Text = randomnesstrack.Value.ToString();
@@ -170,7 +175,7 @@ namespace pixelwashgui
                 }
             }
         }
-
+            //upperthresholdvaluehandler
         private void upperthresholdtrack_ValueChanged(object sender, EventArgs e)
         {
             upperthresholdvalue.Text = upperthresholdtrack.Value.ToString();
@@ -198,59 +203,88 @@ namespace pixelwashgui
                 }
             }
         }
+            //videoframedisplayhandler
+        private void videoframetrack_ValueChanged(object sender, EventArgs e)
+        {
+            videoframevalue.Text = videoframetrack.Value.ToString();
+            preview.ImageLocation = Path.Combine(userpath, "documents/pixelwashgui/tempvideo/" + videoframetrack.Value + ".png");
+        }
+
+        private void videoframevalue_TextChanged(object sender, EventArgs e)
+        {
+            int IgnoreMe = 0;
+            bool videoframeparse = int.TryParse(videoframevalue.Text, out IgnoreMe);
+            if (videoframevalue.Text == "") { }
+            else if (videoframeparse)
+            {
+                int videoframevalueint = int.Parse(videoframevalue.Text);
+                if (videoframevalueint >= 1 && videoframevalueint <= videoframetrack.Maximum)
+                {
+                    videoframetrack.Value = videoframevalueint;
+                }
+                else if (videoframevalueint > videoframetrack.Maximum)
+                {
+                    videoframetrack.Value = videoframetrack.Maximum;
+                }
+                else if (videoframevalueint < 1)
+                {
+                    videoframetrack.Value = 1;
+                }
+            }
+        }
         //variables
-        public static string version = "v1.0.4";
+        public bool isvideo = false;
+        public bool isbusy = false;
+        public static string version = "v1.0.5";
         public string inputpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
+        public int videoframes = 0;
         public string[] sortingarray = { "hue", "lightness", "intensity", "minimum", "saturation" };
         public string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
+        public string[] paths = { ".png", ".PNG", ".jpg", "JPG" };
+        public string[] videopaths = { ".mp4" };
 
         //function code
-            //filewatcherinit
-        public void CreateFileWatcher()
-        {
-            FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.Path = Path.Combine(userpath, "documents/pixelwashgui/");
-            watcher.NotifyFilter = NotifyFilters.LastWrite;
-            watcher.Filter = "tempwash.png";
-            watcher.Changed += new FileSystemEventHandler(OnChanged);
-            watcher.EnableRaisingEvents = true;
-        }
-            //imageautoupdateevent
-        public void OnChanged(object source, FileSystemEventArgs e)
-        {
-            preview.Invoke((MethodInvoker)delegate
-            {
-                preview.ImageLocation = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
-                preview.Update();
-                status.Text = version+" Delamox";
-                status.ForeColor = Color.White;
-
-            });
-        }
             //openfiledialoghandler
         public void OpenFileFunction()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = (userpath + "/Downloads");
-                openFileDialog.Filter = "Image Files (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
+                openFileDialog.Filter = "Supported Formats (*.png;*.jpg;*.mp4)|*.png;*.jpg;*.mp4|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = false;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string extensioncheck = Path.GetExtension(openFileDialog.FileName);
-                    if (extensioncheck == ".png" || extensioncheck == ".jpg")
+                    if (Directory.Exists(Path.Combine(userpath, "documents/pixelwashgui/tempvideo")))
                     {
+                        Directory.Delete(Path.Combine(userpath, "documents/pixelwashgui/tempvideo"), true);
+                    }
+                    videoframetrack.Maximum = 1;
+                    videoframetrack.TickFrequency = 1;
+                    videoframetrack.SmallChange = 1;
+                    videoframetrack.LargeChange = 1;
+                    videoframetrack.Value = 1;
+                    videoframevalue.Text = "1";
+                    if (paths.Contains(extensioncheck))
+                    {
+                        isvideo = false;
                         inputpath = openFileDialog.FileName;
                         preview.ImageLocation = inputpath;
                         preview.Update();
                     }
+                    else if (videopaths.Contains(extensioncheck))
+                    {
+                        isvideo = true;
+                        inputpath = openFileDialog.FileName;
+                        loadvideo();
+                    }
                     else
                     {
-                        MessageBox.Show("invalid file type, use either png or jpg files.");
+                        MessageBox.Show("invalid file type, use either png, jpg or mp4 files.");
                     }
                 }
             }
@@ -258,6 +292,7 @@ namespace pixelwashgui
             //savefiledialoghandler
         public void SaveFileFunction()
         {
+            if (isvideo == false)
             {
                 Random random = new Random();
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -274,19 +309,46 @@ namespace pixelwashgui
                     System.IO.File.Copy(Path.Combine(userpath, "documents/pixelwashgui/tempwash.png"), saveFileDialog.FileName, true);
                 }
             }
+            else if (isvideo == true)
+            {
+                Random random = new Random();
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.InitialDirectory = (userpath + "/Downloads");
+                saveFileDialog.Filter = "MPEG-4 video format (*.mp4)|*.mp4|All files (*.*)|*.*";
+                saveFileDialog.DefaultExt = "mp4";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.RestoreDirectory = false;
+                saveFileDialog.OverwritePrompt = true;
+                saveFileDialog.FileName = "pixelsortvideo" + random.Next(1, 1000).ToString();
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    System.IO.File.Copy(Path.Combine(userpath, "documents/pixelwashgui/tempwash.mp4"), saveFileDialog.FileName, true);
+                }
+            }
         }
             //pixelsortcommunicator
         public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue, int lowerthresholdvalue, int upperthresholdvalue)
         {
-            if (status.Text != "working" && inputpath != string.Empty)
+            
+            if (isbusy == false && inputpath != string.Empty)
             {
-                status.Text = "working";
+                isbusy = true;
+                status.Text = "pixelsorting";
                 status.ForeColor = Color.Red;
                 Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui"));
                 sortingvalue = sortingarray[sortingtrack.Value - 1];
                 functionvalue = functionarray[functiontrack.Value - 1];
-                string completecommand = "/C python -m pixelsort " + doubletick + inputpath + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png")
+                string completecommand = "";
+                if (isvideo == false)
+                {
+                    completecommand = "/C python -m pixelsort " + doubletick + inputpath + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png")
                     + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue;
+                }
+                else if (isvideo == true)
+                {
+                    completecommand = "/C python -m pixelsort " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempvideo/" + videoframetrack.Value + ".png") + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png")
+                    + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue;
+                }
                 //MessageBox.Show(completecommand);
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
@@ -295,22 +357,126 @@ namespace pixelwashgui
                 startInfo.Arguments = completecommand;
                 process.StartInfo = startInfo;
                 process.Start();
+                process.WaitForExit();
+                preview.ImageLocation = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
+                status.Text = version + " Delamox";
+                status.ForeColor = Color.White;
+                isbusy = false;
             }
+        }
+            //videopixelsortcommunicator
+        public void ExecuteCommandVideo(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue, int lowerthresholdvalue, int upperthresholdvalue)
+        {
+            isbusy = true;
+            status.Text = "pixelsorting";
+            status.ForeColor = Color.Red;
+            if (Directory.Exists(Path.Combine(userpath, "documents/pixelwashgui/processedvideo")))
+            {
+                Directory.Delete(Path.Combine(userpath, "documents/pixelwashgui/processedvideo"), true);
+            }
+            Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui"));
+            Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui/processedvideo"));
+            sortingvalue = sortingarray[sortingtrack.Value - 1];
+            functionvalue = functionarray[functiontrack.Value - 1];
+            for (int i = 1; i <= videoframes; i++)
+            {
+                status.Text = i + "/" + videoframes;
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.FileName = "cmd.exe";
+                startInfo.Arguments = "/C python -m pixelsort " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempvideo/" + i + ".png") + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/" + i + ".png")
+                    + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue;
+                process.StartInfo = startInfo;
+                process.Start();
+                process.WaitForExit();
+
+            }
+            status.Text = "muxing";
+            status.ForeColor = Color.Red;
+            System.Diagnostics.Process process3 = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo3 = new System.Diagnostics.ProcessStartInfo();
+            startInfo3.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+            startInfo3.FileName = "cmd.exe";
+            startInfo3.Arguments = "/C ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=r_frame_rate \"" + inputpath + "\"";
+            startInfo3.UseShellExecute = false;
+            startInfo3.RedirectStandardOutput = true;
+            process3.StartInfo = startInfo3;
+            process3.Start();
+            string frameratecomputed = process3.StandardOutput.ReadLine().ToString();
+            string framerate = new DataTable().Compute(frameratecomputed,  null).ToString();
+            process3.WaitForExit();
+            System.Diagnostics.Process process2 = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo2 = new System.Diagnostics.ProcessStartInfo();
+            startInfo2.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo2.FileName = "cmd.exe";
+            startInfo2.Arguments = "/C ffmpeg -y -i \"" + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/%0d.png") + "\" -map_metadata 0 -map 0 -map -0:v:0 -map 1:v:0 -r " + framerate + " " + Path.Combine(userpath, "documents/pixelwashgui/tempwash.mp4");
+            process2.StartInfo = startInfo2;
+            process2.Start();
+            process2.WaitForExit();
+            status.Text = version + " Delamox";
+            status.ForeColor = Color.White;
+            isbusy = false;
+            SaveFileFunction();
+        }
+            //videoloader
+        private void loadvideo()
+        {
+            isbusy = true;
+            status.Text = "loading";
+            status.ForeColor = Color.Red;
+            Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui"));
+            Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui/tempvideo"));
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WorkingDirectory = Path.Combine(userpath, "documents/pixelwashgui/tempvideo");
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C ffmpeg -i \"" + inputpath + "\" %0d.png";
+            process.StartInfo = startInfo;
+            process.Start();
+            process.WaitForExit();
+            videoframes = Directory.GetFiles(Path.Combine(userpath, "documents/pixelwashgui/tempvideo"), "*", SearchOption.TopDirectoryOnly).Length;
+            videoframetrack.Maximum = videoframes;
+            videoframetrack.TickFrequency = videoframes / 10;
+            videoframetrack.SmallChange = videoframes / 10;
+            videoframetrack.LargeChange = videoframes / 10;
+            preview.ImageLocation = Path.Combine(userpath, "documents/pixelwashgui/tempvideo/" + videoframetrack.Value + ".png");
+            status.Text = version + " Delamox";
+            status.ForeColor = Color.White;
+            isbusy = false;
         }
             //draganddrophandler
         private void mainwindow_DragDrop(object sender, DragEventArgs e)
         {
             string[] dragdropinput = (string[])e.Data.GetData(DataFormats.FileDrop);
             string extensioncheck = Path.GetExtension(dragdropinput[0]);
-            if (extensioncheck == ".png" || extensioncheck == ".jpg")
+            if (Directory.Exists(Path.Combine(userpath, "documents/pixelwashgui/tempvideo")))
             {
+                Directory.Delete(Path.Combine(userpath, "documents/pixelwashgui/tempvideo"), true);
+            }
+            videoframetrack.Maximum = 1;
+            videoframetrack.TickFrequency = 1;
+            videoframetrack.SmallChange = 1;
+            videoframetrack.LargeChange = 1;
+            videoframetrack.Value = 1;
+            videoframevalue.Text = "1";
+            if (paths.Contains(extensioncheck))
+            {
+                isvideo = false;
                 inputpath = dragdropinput[0];
                 preview.ImageLocation = inputpath;
                 preview.Update();
             }
+            else if (videopaths.Contains(extensioncheck))
+            {
+                isvideo = true;
+                inputpath = dragdropinput[0];
+                loadvideo();
+            }
             else
             {
-                MessageBox.Show("invalid file type, use either png or jpg files.");
+                MessageBox.Show("invalid file type, use either png, jpg or mp4 files.");
             }
         }
 
