@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Xml.Linq;
 
 namespace pixelwashgui
 {
@@ -235,7 +236,7 @@ namespace pixelwashgui
         //variables
         public bool isvideo = false;
         public bool isbusy = false;
-        public static string version = "v1.0.5";
+        public static string version = "v1.1.0";
         public string inputpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
@@ -404,13 +405,17 @@ namespace pixelwashgui
             process3.StartInfo = startInfo3;
             process3.Start();
             string frameratecomputed = process3.StandardOutput.ReadLine().ToString();
-            string framerate = new DataTable().Compute(frameratecomputed,  null).ToString();
+            string framerate = new DataTable().Compute(frameratecomputed, null).ToString();
             process3.WaitForExit();
+            
             System.Diagnostics.Process process2 = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo2 = new System.Diagnostics.ProcessStartInfo();
             startInfo2.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo2.UseShellExecute = false;
             startInfo2.FileName = "cmd.exe";
-            startInfo2.Arguments = "/C ffmpeg -y -i \"" + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/%0d.png") + "\" -map_metadata 0 -map 0 -map -0:v:0 -map 1:v:0 -r " + framerate + " " + Path.Combine(userpath, "documents/pixelwashgui/tempwash.mp4");
+            startInfo2.Arguments = "/C ffmpeg -y -i \"" + inputpath + "\" -i \"" + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/%0d.png") + "\"  -map 0 -map -0:v -map 1 -c:v libx264 -pix_fmt yuv420p -start_number 1 -r " + framerate + " -vf \"setpts =(1/(" + framerate + "/25))*PTS\" " + Path.Combine(userpath, "documents/pixelwashgui/tempwash.mp4");
+
+
             process2.StartInfo = startInfo2;
             process2.Start();
             process2.WaitForExit();
