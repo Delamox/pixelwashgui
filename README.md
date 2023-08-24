@@ -11,16 +11,16 @@ Standalone GUI addon for [satyarth's pixelsorter](https://github.com/satyarth/pi
 ## Usage (images):
 
 1) Open the downloaded pixelwashgui.exe file.
-2) Drag and drop either a .jpg or a .png image or select one manually by clicking the 'open file' button.
-3) Adjust the sliders or type in values by clicking on the numbers next to the labels. Visit [satyarth's argumentation](https://github.com/satyarth/pixelsort/) for a more detailed explanation.
+2) Drag and drop a [supported image](https://github.com/Delamox/pixelwashgui/blob/master/imageextensions.md) or select one manually by clicking the 'open file' button.
+3) Adjust the sliders or type in values by clicking on the numbers next to the labels. Visit [satyarth's argumentation](https://github.com/satyarth/pixelsort/#parameters) for a more detailed explanation.
 4) Click the 'pixelsort' button and wait until the generated image shows up.
 5) Either click the 'save file' button to save the currently displayed image or adjust the sliders and repeat step 4.
 
 ## Usage (videos):
 
 1) Open the downloaded pixelwashgui.exe file.
-2) Drag and drop an mp4 video or select one manually by clicking the 'open file' button.
-3) Adjust the sliders or type in values by clicking on the numbers next to the labels. Visit [satyarth's argumentation](https://github.com/satyarth/pixelsort/) for a more detailed explanation.
+2) Drag and drop a [supported video](https://github.com/Delamox/pixelwashgui/blob/master/videoextensions.md) or select one manually by clicking the 'open file' button.
+3) Adjust the sliders or type in values by clicking on the numbers next to the labels. Visit [satyarth's argumentation](https://github.com/satyarth/pixelsort/#parameters) for a more detailed explanation.
 4) Select the desired test frame with the 'video frame' track.
 5) Click the 'pixelsort' button and wait until the generated image shows up.
 6) Repeat step 3-4-5 until you get the desired effect

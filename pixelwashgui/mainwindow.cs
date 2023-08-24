@@ -244,7 +244,7 @@ namespace pixelwashgui
         public string[] sortingarray = { "hue", "lightness", "intensity", "minimum", "saturation" };
         public string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
         public string[] paths = { ".png", ".PNG", ".jpg", "JPG" };
-        public string[] videopaths = { ".mp4" };
+        public string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
 
         //function code
             //openfiledialoghandler
