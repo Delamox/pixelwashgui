@@ -33,6 +33,36 @@ namespace pixelwashgui
         {
             status.Text = version + " Delamox";
             Text = "pixelwash " + version;
+            init();
+
+        }
+
+        public void init()
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C python -m pixelsort";
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.CreateNoWindow = true;
+            process.StartInfo = startInfo;
+            process.Start();
+            string pixelinstalled = process.StandardOutput.ReadLine().ToString();
+            process.WaitForExit();
+            if (pixelinstalled.Contains("not found"))
+            {
+                System.Diagnostics.Process process2 = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo2 = new System.Diagnostics.ProcessStartInfo();
+                startInfo2.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo2.FileName = "cmd.exe";
+                startInfo2.Arguments = "/C python -m pip install show pixelsorter";
+                process2.StartInfo = startInfo2;
+                process2.Start();
+                process2.WaitForExit();
+            }
+
         }
         //function calls
         private void openfile_MouseClick(object sender, MouseEventArgs e)
@@ -55,7 +85,7 @@ namespace pixelwashgui
             ExecuteCommandVideo(randomnesstrack.Value, lengthtrack.Value, angletrack.Value, sortingtrack.Value.ToString(), functiontrack.Value.ToString(), lowthresholdtrack.Value, upperthresholdtrack.Value);
         }
         //valuehandlers
-        //randomnessvaluehandler
+            //randomnessvalue
         private void randomnesstrack_ValueChanged(object sender, EventArgs e)
         {
             randomnessvalue.Text = randomnesstrack.Value.ToString();
@@ -83,7 +113,7 @@ namespace pixelwashgui
                 }
             }
         }
-            //lengthvaluehandler
+            //lengthvalue
         private void lengthtrack_ValueChanged(object sender, EventArgs e)
         {
             lengthvalue.Text = lengthtrack.Value.ToString();
@@ -111,7 +141,7 @@ namespace pixelwashgui
                 }
             }
         }
-            //anglevaluehandler
+            //anglevalue
         private void angletrack_ValueChanged(object sender, EventArgs e)
         {
             anglevalue.Text = angletrack.Value.ToString();
@@ -149,7 +179,7 @@ namespace pixelwashgui
         {
             functionvalue.Text = functionarray[functiontrack.Value - 1];
         }
-            //lowthresholdvaluehandler
+            //lowthresholdvalue
         private void lowthresholdtrack_ValueChanged(object sender, EventArgs e)
         {
             lowthresholdvalue.Text = lowthresholdtrack.Value.ToString();
@@ -176,7 +206,7 @@ namespace pixelwashgui
                 }
             }
         }
-            //upperthresholdvaluehandler
+            //upperthresholdvalue
         private void upperthresholdtrack_ValueChanged(object sender, EventArgs e)
         {
             upperthresholdvalue.Text = upperthresholdtrack.Value.ToString();
@@ -204,7 +234,7 @@ namespace pixelwashgui
                 }
             }
         }
-            //videoframedisplayhandler
+            //videoframedisplay
         private void videoframetrack_ValueChanged(object sender, EventArgs e)
         {
             videoframevalue.Text = videoframetrack.Value.ToString();
@@ -247,7 +277,7 @@ namespace pixelwashgui
         public string[] videopaths = { ".mp4" };
 
         //function code
-            //openfiledialoghandler
+            //openfiledialog
         public void OpenFileFunction()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -290,7 +320,7 @@ namespace pixelwashgui
                 }
             }
         }
-            //savefiledialoghandler
+            //savefiledialog
         public void SaveFileFunction()
         {
             if (isvideo == false)
@@ -397,7 +427,7 @@ namespace pixelwashgui
             status.ForeColor = Color.Red;
             System.Diagnostics.Process process3 = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo3 = new System.Diagnostics.ProcessStartInfo();
-            startInfo3.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+            startInfo3.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo3.FileName = "cmd.exe";
             startInfo3.Arguments = "/C ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=r_frame_rate \"" + inputpath + "\"";
             startInfo3.UseShellExecute = false;
@@ -407,15 +437,12 @@ namespace pixelwashgui
             string frameratecomputed = process3.StandardOutput.ReadLine().ToString();
             string framerate = new DataTable().Compute(frameratecomputed, null).ToString();
             process3.WaitForExit();
-            
             System.Diagnostics.Process process2 = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo2 = new System.Diagnostics.ProcessStartInfo();
             startInfo2.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo2.UseShellExecute = false;
             startInfo2.FileName = "cmd.exe";
             startInfo2.Arguments = "/C ffmpeg -y -i \"" + inputpath + "\" -i \"" + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/%0d.png") + "\"  -map 0 -map -0:v -map 1 -c:v libx264 -pix_fmt yuv420p -start_number 1 -r " + framerate + " -vf \"setpts =(1/(" + framerate + "/25))*PTS\" " + Path.Combine(userpath, "documents/pixelwashgui/tempwash.mp4");
-
-
             process2.StartInfo = startInfo2;
             process2.Start();
             process2.WaitForExit();
@@ -451,7 +478,7 @@ namespace pixelwashgui
             status.ForeColor = Color.White;
             isbusy = false;
         }
-            //draganddrophandler
+            //draganddroploader
         private void mainwindow_DragDrop(object sender, DragEventArgs e)
         {
             string[] dragdropinput = (string[])e.Data.GetData(DataFormats.FileDrop);
