@@ -236,10 +236,12 @@ namespace pixelwashgui
         //variables
         public bool isvideo = false;
         public bool isbusy = false;
-        public bool hasmap = false;
+        public bool hasmask = false;
+        public bool hasinterval = false;
         public static string version = "v1.1.0";
         public string inputpath = string.Empty;
-        public string mappath = string.Empty;
+        public string maskpath = string.Empty;
+        public string intervalpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
         public int videoframes = 0;
@@ -248,7 +250,7 @@ namespace pixelwashgui
         public string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
         public string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
 
-        public void openmap()
+        public void openmask()
         { 
             using (openFileDialog openfiledialog = new OpenFileDialog())
             {
@@ -256,19 +258,54 @@ namespace pixelwashgui
                 openFileDialog.Filter = "Supported Formats (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = false;
-
                 if (openFileDialog.ShowDialog() == DialogResult.OK())
                 {
                     string mapextensioncheck = Path.GetExtension(openFileDialog.Filename);
-                    if (paths.Contains(mapextensioncheck))
+                    if (paths.Contains(mapextensioncheck) && preview.Image.Size() == openfileDialog.Image.FromFile.Size())
                     {
-                        mappath = openFileDialog.Filename;
-                        hasmap = true;
+                        maskpath = " -m \"" + OpenFileDialog.Filename + "\"";
+                        hasmask = true;
+                        
+                    }
+                    else 
+                    {
+                        MessageBox.Show("please upload an image with the same dimensions as the processed image")
                     }
                 }
                 else 
                 {
-                    
+                    maskpath = "";
+                    hasmask = false;
+                }
+            }
+        }
+
+        public void openinterval()
+        { 
+            using (openFileDialog openfiledialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = (userpath + "/Downloads");
+                openFileDialog.Filter = "Supported Formats (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = false;
+                if (openFileDialog.ShowDialog() == DialogResult.OK())
+                {
+                    string mapextensioncheck = Path.GetExtension(openFileDialog.Filename);
+                    if (paths.Contains(mapextensioncheck) && preview.Image.Size() == openfileDialog.Image.FromFile.Size())
+                    {
+                        intervalpath = " -f \"" + OpenFileDialog.Filename + "\"";
+                        hasinterval = true;
+                        
+                    }
+                    else 
+                    {
+                        MessageBox.Show("please upload an image with the same dimensions as the processed image")
+                    }
+                }
+                else 
+                {
+                    intervalpath = "";
+                    hasinterval = false;
                 }
             }
         }
@@ -282,7 +319,6 @@ namespace pixelwashgui
                 openFileDialog.Filter = "Supported Formats (*.png;*.jpg;*.mp4)|*.png;*.jpg;*.mp4|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = false;
-
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string extensioncheck = Path.GetExtension(openFileDialog.FileName);
@@ -330,7 +366,6 @@ namespace pixelwashgui
                 saveFileDialog.RestoreDirectory = false;
                 saveFileDialog.OverwritePrompt = true;
                 saveFileDialog.FileName = "pixelsort" + random.Next(1, 1000).ToString();
-
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     System.IO.File.Copy(Path.Combine(userpath, "documents/pixelwashgui/tempwash.png"), saveFileDialog.FileName, true);
@@ -369,12 +404,12 @@ namespace pixelwashgui
                 if (isvideo == false)
                 {
                     completecommand = "/C python -m pixelsort " + doubletick + inputpath + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png")
-                    + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue;
+                    + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue + maskpath + intervalpath;
                 }
                 else if (isvideo == true)
                 {
                     completecommand = "/C python -m pixelsort " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempvideo/" + videoframetrack.Value + ".png") + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png")
-                    + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue;
+                    + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue + maskpath + intervalpath;
                 }
                 //MessageBox.Show(completecommand);
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
@@ -413,11 +448,10 @@ namespace pixelwashgui
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
                 startInfo.FileName = "cmd.exe";
                 startInfo.Arguments = "/C python -m pixelsort " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempvideo/" + i + ".png") + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/" + i + ".png")
-                    + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue;
+                    + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue + maskpath + intervalpath;
                 process.StartInfo = startInfo;
                 process.Start();
                 process.WaitForExit();
-
             }
             status.Text = "muxing";
             status.ForeColor = Color.Red;
@@ -433,15 +467,12 @@ namespace pixelwashgui
             string frameratecomputed = process3.StandardOutput.ReadLine().ToString();
             string framerate = new DataTable().Compute(frameratecomputed, null).ToString();
             process3.WaitForExit();
-            
             System.Diagnostics.Process process2 = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo2 = new System.Diagnostics.ProcessStartInfo();
             startInfo2.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo2.UseShellExecute = false;
             startInfo2.FileName = "cmd.exe";
             startInfo2.Arguments = "/C ffmpeg -y -i \"" + inputpath + "\" -i \"" + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/%0d.png") + "\"  -map 0 -map -0:v -map 1 -c:v libx264 -pix_fmt yuv420p -start_number 1 -r " + framerate + " -vf \"setpts =(1/(" + framerate + "/25))*PTS\" " + Path.Combine(userpath, "documents/pixelwashgui/tempwash.mp4");
-
-
             process2.StartInfo = startInfo2;
             process2.Start();
             process2.WaitForExit();
