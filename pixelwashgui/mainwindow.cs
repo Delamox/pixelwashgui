@@ -236,16 +236,42 @@ namespace pixelwashgui
         //variables
         public bool isvideo = false;
         public bool isbusy = false;
+        public bool hasmap = false;
         public static string version = "v1.1.0";
         public string inputpath = string.Empty;
+        public string mappath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
         public int videoframes = 0;
-        public string[] sortingarray = { "hue", "lightness", "intensity", "minimum", "saturation" };
+        public string[] sortingarray = { "lightness", "hue", "intensity", "minimum", "saturation" };
         public string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
-        public string[] paths = { ".png", ".PNG", ".jpg", "JPG" };
+        public string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
         public string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
 
+        public void openmap()
+        { 
+            using (openFileDialog openfiledialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = (userpath + "/Downloads");
+                openFileDialog.Filter = "Supported Formats (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = false;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK())
+                {
+                    string mapextensioncheck = Path.GetExtension(openFileDialog.Filename);
+                    if (paths.Contains(mapextensioncheck))
+                    {
+                        mappath = openFileDialog.Filename;
+                        hasmap = true;
+                    }
+                }
+                else 
+                {
+                    
+                }
+            }
+        }
         //function code
             //openfiledialoghandler
         public void OpenFileFunction()
