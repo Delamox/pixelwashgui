@@ -39,27 +39,29 @@ namespace pixelwashgui
 
         public void init()
         {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C python -m pixelsort";
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.CreateNoWindow = true;
-            process.StartInfo = startInfo;
-            process.Start();
-            string pixelinstalled = process.StandardOutput.ReadLine().ToString();
-            process.WaitForExit();
+            System.Diagnostics.Process process3 = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo3 = new System.Diagnostics.ProcessStartInfo();
+            startInfo3.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo3.FileName = "cmd.exe";
+            startInfo3.Arguments = "/C python -m pip show pixelsort";
+            startInfo3.UseShellExecute = false;
+            startInfo3.RedirectStandardOutput = true;
+            startInfo3.RedirectStandardError = true;
+            startInfo3.CreateNoWindow = true;
+            process3.StartInfo = startInfo3;
+            process3.Start();
+            var pixelinstalled = process3.StandardError.ReadToEnd();
+            process3.WaitForExit();
             if (pixelinstalled.Contains("not found"))
             {
                 System.Diagnostics.Process process2 = new System.Diagnostics.Process();
                 System.Diagnostics.ProcessStartInfo startInfo2 = new System.Diagnostics.ProcessStartInfo();
-                startInfo2.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo2.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
                 startInfo2.FileName = "cmd.exe";
-                startInfo2.Arguments = "/C python -m pip install show pixelsorter";
+                startInfo2.Arguments = "/C python -m pip install pixelsort";
                 process2.StartInfo = startInfo2;
                 process2.Start();
+                Console.ReadKey();
                 process2.WaitForExit();
             }
 
@@ -282,24 +284,25 @@ namespace pixelwashgui
 
         public void openmask()
         { 
-            using (openFileDialog openfiledialog = new OpenFileDialog())
+            using (OpenFileDialog openfiledialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = (userpath + "/Downloads");
-                openFileDialog.Filter = "Supported Formats (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = false;
-                if (openFileDialog.ShowDialog() == DialogResult.OK())
+                openfiledialog.InitialDirectory = (userpath + "/Downloads");
+                openfiledialog.Filter = "Supported Formats (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
+                openfiledialog.FilterIndex = 1;
+                openfiledialog.RestoreDirectory = false;
+                if (openfiledialog.ShowDialog() == DialogResult.OK)
                 {
-                    string mapextensioncheck = Path.GetExtension(openFileDialog.Filename);
-                    if (paths.Contains(mapextensioncheck) && preview.Image.Size() == openfileDialog.Image.FromFile.Size())
+                    string mapextensioncheck = Path.GetExtension(openfiledialog.FileName);
+                    if (paths.Contains(mapextensioncheck) && preview.Image.Width == System.Drawing.Image.FromFile(openfiledialog.FileName).Width 
+                        && preview.Image.Height == System.Drawing.Image.FromFile(openfiledialog.FileName).Height)
                     {
-                        maskpath = " -m \"" + OpenFileDialog.Filename + "\"";
+                        maskpath = "\"" + openfiledialog.FileName + "\"";
                         hasmask = true;
-                        
+
                     }
-                    else 
+                    else
                     {
-                        MessageBox.Show("please upload an image with the same dimensions as the processed image")
+                        MessageBox.Show("please upload an image with the same dimensions as the processed image");
                     }
                 }
                 else 
@@ -312,24 +315,25 @@ namespace pixelwashgui
 
         public void openinterval()
         { 
-            using (openFileDialog openfiledialog = new OpenFileDialog())
+            using (OpenFileDialog openfiledialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = (userpath + "/Downloads");
-                openFileDialog.Filter = "Supported Formats (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = false;
-                if (openFileDialog.ShowDialog() == DialogResult.OK())
+                openfiledialog.InitialDirectory = (userpath + "/Downloads");
+                openfiledialog.Filter = "Supported Formats (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
+                openfiledialog.FilterIndex = 1;
+                openfiledialog.RestoreDirectory = false;
+                if (openfiledialog.ShowDialog() == DialogResult.OK)
                 {
-                    string mapextensioncheck = Path.GetExtension(openFileDialog.Filename);
-                    if (paths.Contains(mapextensioncheck) && preview.Image.Size() == openfileDialog.Image.FromFile.Size())
+                    string mapextensioncheck = Path.GetExtension(openfiledialog.FileName);
+                    if (paths.Contains(mapextensioncheck) && preview.Image.Width == System.Drawing.Image.FromFile(openfiledialog.FileName).Width 
+                        && preview.Image.Height == System.Drawing.Image.FromFile(openfiledialog.FileName).Height)
                     {
-                        intervalpath = " -f \"" + OpenFileDialog.Filename + "\"";
+                        intervalpath = "\"" + openfiledialog.FileName + "\"";
                         hasinterval = true;
-                        
+
                     }
-                    else 
+                    else
                     {
-                        MessageBox.Show("please upload an image with the same dimensions as the processed image")
+                        MessageBox.Show("please upload an image with the same dimensions as the processed image");
                     }
                 }
                 else 
@@ -578,6 +582,16 @@ namespace pixelwashgui
             {
                 e.Effect = DragDropEffects.All;
             }
+        }
+
+        private void openintervalbutton_Click(object sender, EventArgs e)
+        {
+            openinterval();
+        }
+
+        private void openmaskbutton_Click(object sender, EventArgs e)
+        {
+            openmask();
         }
     }
 }

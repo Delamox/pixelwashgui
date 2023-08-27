@@ -60,6 +60,8 @@
             this.videoframevalue = new System.Windows.Forms.TextBox();
             this.videoframe = new System.Windows.Forms.TextBox();
             this.executevideo = new System.Windows.Forms.Button();
+            this.openintervalbutton = new System.Windows.Forms.Button();
+            this.openmaskbutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.angletrack)).BeginInit();
@@ -226,7 +228,7 @@
             // 
             this.executebutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.executebutton.ForeColor = System.Drawing.Color.White;
-            this.executebutton.Location = new System.Drawing.Point(12, 655);
+            this.executebutton.Location = new System.Drawing.Point(12, 630);
             this.executebutton.Name = "executebutton";
             this.executebutton.Size = new System.Drawing.Size(75, 23);
             this.executebutton.TabIndex = 12;
@@ -348,10 +350,10 @@
             this.status.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.status.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.status.ForeColor = System.Drawing.Color.White;
-            this.status.Location = new System.Drawing.Point(93, 660);
+            this.status.Location = new System.Drawing.Point(12, 659);
             this.status.Name = "status";
             this.status.ReadOnly = true;
-            this.status.Size = new System.Drawing.Size(75, 13);
+            this.status.Size = new System.Drawing.Size(156, 13);
             this.status.TabIndex = 21;
             this.status.Text = "v+Delamox";
             this.status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -488,13 +490,37 @@
             // 
             this.executevideo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.executevideo.ForeColor = System.Drawing.Color.White;
-            this.executevideo.Location = new System.Drawing.Point(12, 626);
+            this.executevideo.Location = new System.Drawing.Point(12, 601);
             this.executevideo.Name = "executevideo";
             this.executevideo.Size = new System.Drawing.Size(75, 23);
             this.executevideo.TabIndex = 31;
             this.executevideo.Text = "videosort";
             this.executevideo.UseVisualStyleBackColor = false;
             this.executevideo.Click += new System.EventHandler(this.executevideo_Click);
+            // 
+            // openintervalbutton
+            // 
+            this.openintervalbutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.openintervalbutton.ForeColor = System.Drawing.Color.White;
+            this.openintervalbutton.Location = new System.Drawing.Point(93, 630);
+            this.openintervalbutton.Name = "openintervalbutton";
+            this.openintervalbutton.Size = new System.Drawing.Size(75, 23);
+            this.openintervalbutton.TabIndex = 32;
+            this.openintervalbutton.Text = "open thres";
+            this.openintervalbutton.UseVisualStyleBackColor = false;
+            this.openintervalbutton.Click += new System.EventHandler(this.openintervalbutton_Click);
+            // 
+            // openmaskbutton
+            // 
+            this.openmaskbutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.openmaskbutton.ForeColor = System.Drawing.Color.White;
+            this.openmaskbutton.Location = new System.Drawing.Point(93, 601);
+            this.openmaskbutton.Name = "openmaskbutton";
+            this.openmaskbutton.Size = new System.Drawing.Size(75, 23);
+            this.openmaskbutton.TabIndex = 33;
+            this.openmaskbutton.Text = "open mask";
+            this.openmaskbutton.UseVisualStyleBackColor = false;
+            this.openmaskbutton.Click += new System.EventHandler(this.openmaskbutton_Click);
             // 
             // mainwindow
             // 
@@ -503,6 +529,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(43)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1394, 852);
+            this.Controls.Add(this.openmaskbutton);
+            this.Controls.Add(this.openintervalbutton);
             this.Controls.Add(this.executevideo);
             this.Controls.Add(this.videoframevalue);
             this.Controls.Add(this.videoframe);
@@ -588,6 +616,8 @@
         private System.Windows.Forms.TextBox videoframevalue;
         private System.Windows.Forms.TextBox videoframe;
         private System.Windows.Forms.Button executevideo;
+        private System.Windows.Forms.Button openintervalbutton;
+        private System.Windows.Forms.Button openmaskbutton;
     }
 }
 
