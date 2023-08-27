@@ -4,9 +4,8 @@ Standalone GUI addon for [satyarth's pixelsorter](https://github.com/satyarth/pi
 ## Installation:
 
 1) Download and install: [python](https://www.python.org/ftp/python/3.11.4/python-3.11.4-amd64.exe) if you haven't already. Make sure to tick the 'add to PATH' option in the installer.
-2) Install satyarth's pixelsorter by pasting the following command in the command prompt: `pip install pixelsorter`
-3) Install FFmpeg by pasting the following command in the command prompt: `pip install ffmpeg`
-4) Download the lastest [pixelwashgui.exe](https://github.com/Delamox/pixelwashgui/releases).
+2) Install FFmpeg by pasting the following command in the command prompt: `pip install ffmpeg`
+3) Download the lastest [pixelwashgui.exe](https://github.com/Delamox/pixelwashgui/releases).
 
 ## Usage (images):
 
