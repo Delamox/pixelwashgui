@@ -266,22 +266,23 @@ namespace pixelwashgui
             }
         }
         //variables
+        public int videoframes = 0;
         public bool isvideo = false;
         public bool isbusy = false;
         public bool hasmask = false;
         public bool hasinterval = false;
-        public static string version = "v1.1.0";
         public string inputpath = string.Empty;
         public string maskpath = string.Empty;
         public string intervalpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
-        public int videoframes = 0;
-        public string[] sortingarray = { "lightness", "hue", "intensity", "minimum", "saturation" };
-        public string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
-        public string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
-        public string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
+        public static string version = "v1.1.0";
+        public static string[] sortingarray = { "lightness", "hue", "intensity", "minimum", "saturation" };
+        public static string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
+        public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
+        public static string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
 
+        
         public void openmask()
         { 
             using (OpenFileDialog openfiledialog = new OpenFileDialog())
@@ -296,9 +297,33 @@ namespace pixelwashgui
                     if (paths.Contains(mapextensioncheck) && preview.Image.Width == System.Drawing.Image.FromFile(openfiledialog.FileName).Width 
                         && preview.Image.Height == System.Drawing.Image.FromFile(openfiledialog.FileName).Height)
                     {
-                        maskpath = "\"" + openfiledialog.FileName + "\"";
-                        hasmask = true;
-
+                        var bmp = new Bitmap(preview.Image.Width, preview.Image.Height,PixelFormat.Format32bppArgb)
+                        var blackwhite = Graphics.FromImage(bmp)
+                        blackwhite.DrawImage(image, 0, 0)
+                        var bwdata = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
+                        var clr = (int*)bwdata.Scan0;
+                        var res = true;
+                        bool valid = strue
+                        for (var i = 0; i < bwdata.Height * bwdata.Width; i++)
+                        {
+                            var color = Color.FromArgb(clr[i]);
+                            if ((color.R != color.G || color.G != color.B || color.B != color.R) && (color.R != 0 || color.R != 255))
+                            {
+                                valid = false;
+                                break;
+                            }
+                        }
+                        if (valid == true)
+                        {
+                            bmp.UnlockBits(bwdata); 
+                            maskpath = "\"" + openfiledialog.FileName + "\"";
+                            hasmask = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Image is not black and white, please upload an image that ony contains black or white colours")
+                        }
+                        
                     }
                     else
                     {
@@ -327,9 +352,32 @@ namespace pixelwashgui
                     if (paths.Contains(mapextensioncheck) && preview.Image.Width == System.Drawing.Image.FromFile(openfiledialog.FileName).Width 
                         && preview.Image.Height == System.Drawing.Image.FromFile(openfiledialog.FileName).Height)
                     {
-                        intervalpath = "\"" + openfiledialog.FileName + "\"";
-                        hasinterval = true;
-
+                        var bmp = new Bitmap(preview.Image.Width, preview.Image.Height,PixelFormat.Format32bppArgb)
+                        var blackwhite = Graphics.FromImage(bmp)
+                        blackwhite.DrawImage(image, 0, 0)
+                        var bwdata = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
+                        var clr = (int*)bwdata.Scan0;
+                        var res = true;
+                        bool valid = strue
+                        for (var i = 0; i < bwdata.Height * bwdata.Width; i++)
+                        {
+                            var color = Color.FromArgb(clr[i]);
+                            if ((color.R != color.G || color.G != color.B || color.B != color.R) && (color.R != 0 || color.R != 255))
+                            {
+                                valid = false;
+                                break;
+                            }
+                        }
+                        if (valid == true)
+                        {
+                            bmp.UnlockBits(bwdata); 
+                            intervalpath = "\"" + openfiledialog.FileName + "\"";
+                            hasinterval = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Image is not black and white, please upload an image that ony contains black or white colours")
+                        }
                     }
                     else
                     {
