@@ -297,20 +297,20 @@ namespace pixelwashgui
                     if (paths.Contains(mapextensioncheck) && preview.Image.Width == System.Drawing.Image.FromFile(openfiledialog.FileName).Width 
                         && preview.Image.Height == System.Drawing.Image.FromFile(openfiledialog.FileName).Height)
                     {
-                        var bmp = new Bitmap(preview.Image.Width, preview.Image.Height,PixelFormat.Format32bppArgb)
-                        var blackwhite = Graphics.FromImage(bmp)
-                        blackwhite.DrawImage(image, 0, 0)
-                        var bwdata = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
-                        var clr = (int*)bwdata.Scan0;
-                        var res = true;
-                        bool valid = strue
-                        for (var i = 0; i < bwdata.Height * bwdata.Width; i++)
+                        var img = new Bitmap(preview.Image.Width, preview.Image.Height,PixelFormat.Format32bppArgb)
+                        
+                        int cb = color.ToArgb(Black);
+                        int cw = color.ToArgb(White);
+
+                        for (int x = 0; x < img.Width; x++)
                         {
-                            var color = Color.FromArgb(clr[i]);
-                            if ((color.R != color.G || color.G != color.B || color.B != color.R) && (color.R != 0 || color.R != 255))
+                            for (int y = 0; y < img.Height; y++)
                             {
-                                valid = false;
-                                break;
+                                if (cb != img.GetPixel(x, y).ToArgb() || cw != img.GetPixel(x, y).ToArgb())
+                                {
+                                    valid = false;
+                                    break;
+                                }
                             }
                         }
                         if (valid == true)
