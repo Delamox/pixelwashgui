@@ -129,7 +129,7 @@ namespace pixelwashgui
             else if (lengthparse)
             {
                 int lengthvalueint = int.Parse(lengthvalue.Text);
-                if (lengthvalueint >= 1 && lengthvalueint <= 500)
+                if (lengthvalueint >= 2 && lengthvalueint <= 500)
                 {
                     lengthtrack.Value = lengthvalueint;
                 }
@@ -137,9 +137,9 @@ namespace pixelwashgui
                 {
                     lengthtrack.Value = 500;
                 }
-                else if (lengthvalueint < 1)
+                else if (lengthvalueint < 2)
                 {
-                    lengthtrack.Value = 1;
+                    lengthtrack.Value = 2;
                 }
             }
         }
@@ -297,33 +297,8 @@ namespace pixelwashgui
                     if (paths.Contains(mapextensioncheck) && preview.Image.Width == System.Drawing.Image.FromFile(openfiledialog.FileName).Width 
                         && preview.Image.Height == System.Drawing.Image.FromFile(openfiledialog.FileName).Height)
                     {
-                        var bmp = new Bitmap(preview.Image.Width, preview.Image.Height,PixelFormat.Format32bppArgb)
-                        var blackwhite = Graphics.FromImage(bmp)
-                        blackwhite.DrawImage(image, 0, 0)
-                        var bwdata = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
-                        var clr = (int*)bwdata.Scan0;
-                        var res = true;
-                        bool valid = strue
-                        for (var i = 0; i < bwdata.Height * bwdata.Width; i++)
-                        {
-                            var color = Color.FromArgb(clr[i]);
-                            if ((color.R != color.G || color.G != color.B || color.B != color.R) && (color.R != 0 || color.R != 255))
-                            {
-                                valid = false;
-                                break;
-                            }
-                        }
-                        if (valid == true)
-                        {
-                            bmp.UnlockBits(bwdata); 
-                            maskpath = "\"" + openfiledialog.FileName + "\"";
-                            hasmask = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Image is not black and white, please upload an image that ony contains black or white colours")
-                        }
-                        
+                        maskpath = " -m \"" + openfiledialog.FileName + "\"";
+                        hasmask = true;
                     }
                     else
                     {
@@ -352,32 +327,8 @@ namespace pixelwashgui
                     if (paths.Contains(mapextensioncheck) && preview.Image.Width == System.Drawing.Image.FromFile(openfiledialog.FileName).Width 
                         && preview.Image.Height == System.Drawing.Image.FromFile(openfiledialog.FileName).Height)
                     {
-                        var bmp = new Bitmap(preview.Image.Width, preview.Image.Height,PixelFormat.Format32bppArgb)
-                        var blackwhite = Graphics.FromImage(bmp)
-                        blackwhite.DrawImage(image, 0, 0)
-                        var bwdata = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
-                        var clr = (int*)bwdata.Scan0;
-                        var res = true;
-                        bool valid = strue
-                        for (var i = 0; i < bwdata.Height * bwdata.Width; i++)
-                        {
-                            var color = Color.FromArgb(clr[i]);
-                            if ((color.R != color.G || color.G != color.B || color.B != color.R) && (color.R != 0 || color.R != 255))
-                            {
-                                valid = false;
-                                break;
-                            }
-                        }
-                        if (valid == true)
-                        {
-                            bmp.UnlockBits(bwdata); 
-                            intervalpath = "\"" + openfiledialog.FileName + "\"";
-                            hasinterval = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Image is not black and white, please upload an image that ony contains black or white colours")
-                        }
+                        intervalpath = " -f \"" + openfiledialog.FileName + "\"";
+                        hasinterval = true;
                     }
                     else
                     {
@@ -640,6 +591,11 @@ namespace pixelwashgui
         private void openmaskbutton_Click(object sender, EventArgs e)
         {
             openmask();
+        }
+
+        private void layerbutton_Click(object sender, EventArgs e)
+        {
+            inputpath = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
         }
     }
 }

@@ -62,6 +62,7 @@
             this.executevideo = new System.Windows.Forms.Button();
             this.openintervalbutton = new System.Windows.Forms.Button();
             this.openmaskbutton = new System.Windows.Forms.Button();
+            this.layerbutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.angletrack)).BeginInit();
@@ -103,14 +104,14 @@
             this.lengthtrack.LargeChange = 50;
             this.lengthtrack.Location = new System.Drawing.Point(12, 130);
             this.lengthtrack.Maximum = 500;
-            this.lengthtrack.Minimum = 1;
+            this.lengthtrack.Minimum = 2;
             this.lengthtrack.Name = "lengthtrack";
             this.lengthtrack.Size = new System.Drawing.Size(156, 45);
             this.lengthtrack.SmallChange = 50;
             this.lengthtrack.TabIndex = 3;
             this.lengthtrack.TickFrequency = 50;
             this.lengthtrack.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.lengthtrack.Value = 1;
+            this.lengthtrack.Value = 200;
             this.lengthtrack.ValueChanged += new System.EventHandler(this.lengthtrack_ValueChanged);
             // 
             // randomnesstrack
@@ -125,6 +126,7 @@
             this.randomnesstrack.TabIndex = 4;
             this.randomnesstrack.TickFrequency = 10;
             this.randomnesstrack.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.randomnesstrack.Value = 30;
             this.randomnesstrack.ValueChanged += new System.EventHandler(this.randomnesstrack_ValueChanged);
             // 
             // randomness
@@ -165,7 +167,7 @@
             this.randomnessvalue.Name = "randomnessvalue";
             this.randomnessvalue.Size = new System.Drawing.Size(75, 13);
             this.randomnessvalue.TabIndex = 7;
-            this.randomnessvalue.Text = "0";
+            this.randomnessvalue.Text = "30";
             this.randomnessvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.randomnessvalue.TextChanged += new System.EventHandler(this.randomnessvalue_TextChanged);
             // 
@@ -179,7 +181,7 @@
             this.lengthvalue.Name = "lengthvalue";
             this.lengthvalue.Size = new System.Drawing.Size(75, 13);
             this.lengthvalue.TabIndex = 8;
-            this.lengthvalue.Text = "1";
+            this.lengthvalue.Text = "200";
             this.lengthvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lengthvalue.TextChanged += new System.EventHandler(this.lengthvalue_TextChanged);
             // 
@@ -228,7 +230,7 @@
             // 
             this.executebutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.executebutton.ForeColor = System.Drawing.Color.White;
-            this.executebutton.Location = new System.Drawing.Point(12, 630);
+            this.executebutton.Location = new System.Drawing.Point(12, 601);
             this.executebutton.Name = "executebutton";
             this.executebutton.Size = new System.Drawing.Size(75, 23);
             this.executebutton.TabIndex = 12;
@@ -247,7 +249,7 @@
             this.sortingvalue.ReadOnly = true;
             this.sortingvalue.Size = new System.Drawing.Size(75, 13);
             this.sortingvalue.TabIndex = 16;
-            this.sortingvalue.Text = "hue";
+            this.sortingvalue.Text = "lightness";
             this.sortingvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // sorting
@@ -329,7 +331,7 @@
             this.preview.InitialImage = null;
             this.preview.Location = new System.Drawing.Point(174, 12);
             this.preview.Name = "preview";
-            this.preview.Size = new System.Drawing.Size(1208, 828);
+            this.preview.Size = new System.Drawing.Size(1208, 832);
             this.preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.preview.TabIndex = 0;
             this.preview.TabStop = false;
@@ -338,7 +340,7 @@
             // 
             this.staticpic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.staticpic.Image = global::pixelwashgui.Properties.Resources._34042825;
-            this.staticpic.Location = new System.Drawing.Point(12, 684);
+            this.staticpic.Location = new System.Drawing.Point(12, 688);
             this.staticpic.Name = "staticpic";
             this.staticpic.Size = new System.Drawing.Size(156, 156);
             this.staticpic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -350,10 +352,10 @@
             this.status.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.status.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.status.ForeColor = System.Drawing.Color.White;
-            this.status.Location = new System.Drawing.Point(12, 659);
+            this.status.Location = new System.Drawing.Point(93, 664);
             this.status.Name = "status";
             this.status.ReadOnly = true;
-            this.status.Size = new System.Drawing.Size(156, 13);
+            this.status.Size = new System.Drawing.Size(75, 13);
             this.status.TabIndex = 21;
             this.status.Text = "v+Delamox";
             this.status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -369,7 +371,7 @@
             this.lowthresholdvalue.Name = "lowthresholdvalue";
             this.lowthresholdvalue.Size = new System.Drawing.Size(75, 13);
             this.lowthresholdvalue.TabIndex = 24;
-            this.lowthresholdvalue.Text = "0";
+            this.lowthresholdvalue.Text = "25";
             this.lowthresholdvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lowthresholdvalue.TextChanged += new System.EventHandler(this.lowthresholdvalue_TextChanged);
             // 
@@ -398,6 +400,7 @@
             this.lowthresholdtrack.TabIndex = 22;
             this.lowthresholdtrack.TickFrequency = 10;
             this.lowthresholdtrack.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.lowthresholdtrack.Value = 25;
             this.lowthresholdtrack.ValueChanged += new System.EventHandler(this.lowthresholdtrack_ValueChanged);
             // 
             // upperthresholdvalue
@@ -411,7 +414,7 @@
             this.upperthresholdvalue.Name = "upperthresholdvalue";
             this.upperthresholdvalue.Size = new System.Drawing.Size(75, 13);
             this.upperthresholdvalue.TabIndex = 27;
-            this.upperthresholdvalue.Text = "100";
+            this.upperthresholdvalue.Text = "80";
             this.upperthresholdvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.upperthresholdvalue.TextChanged += new System.EventHandler(this.upperthresholdvalue_TextChanged);
             // 
@@ -440,7 +443,7 @@
             this.upperthresholdtrack.TabIndex = 25;
             this.upperthresholdtrack.TickFrequency = 10;
             this.upperthresholdtrack.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.upperthresholdtrack.Value = 100;
+            this.upperthresholdtrack.Value = 80;
             this.upperthresholdtrack.ValueChanged += new System.EventHandler(this.upperthresholdtrack_ValueChanged);
             // 
             // videoframetrack
@@ -490,7 +493,7 @@
             // 
             this.executevideo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.executevideo.ForeColor = System.Drawing.Color.White;
-            this.executevideo.Location = new System.Drawing.Point(12, 601);
+            this.executevideo.Location = new System.Drawing.Point(12, 630);
             this.executevideo.Name = "executevideo";
             this.executevideo.Size = new System.Drawing.Size(75, 23);
             this.executevideo.TabIndex = 31;
@@ -502,7 +505,7 @@
             // 
             this.openintervalbutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.openintervalbutton.ForeColor = System.Drawing.Color.White;
-            this.openintervalbutton.Location = new System.Drawing.Point(93, 630);
+            this.openintervalbutton.Location = new System.Drawing.Point(93, 601);
             this.openintervalbutton.Name = "openintervalbutton";
             this.openintervalbutton.Size = new System.Drawing.Size(75, 23);
             this.openintervalbutton.TabIndex = 32;
@@ -514,7 +517,7 @@
             // 
             this.openmaskbutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.openmaskbutton.ForeColor = System.Drawing.Color.White;
-            this.openmaskbutton.Location = new System.Drawing.Point(93, 601);
+            this.openmaskbutton.Location = new System.Drawing.Point(93, 630);
             this.openmaskbutton.Name = "openmaskbutton";
             this.openmaskbutton.Size = new System.Drawing.Size(75, 23);
             this.openmaskbutton.TabIndex = 33;
@@ -522,13 +525,26 @@
             this.openmaskbutton.UseVisualStyleBackColor = false;
             this.openmaskbutton.Click += new System.EventHandler(this.openmaskbutton_Click);
             // 
+            // layerbutton
+            // 
+            this.layerbutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.layerbutton.ForeColor = System.Drawing.Color.White;
+            this.layerbutton.Location = new System.Drawing.Point(12, 659);
+            this.layerbutton.Name = "layerbutton";
+            this.layerbutton.Size = new System.Drawing.Size(75, 23);
+            this.layerbutton.TabIndex = 34;
+            this.layerbutton.Text = "new layer";
+            this.layerbutton.UseVisualStyleBackColor = false;
+            this.layerbutton.Click += new System.EventHandler(this.layerbutton_Click);
+            // 
             // mainwindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(43)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(1394, 852);
+            this.ClientSize = new System.Drawing.Size(1394, 856);
+            this.Controls.Add(this.layerbutton);
             this.Controls.Add(this.openmaskbutton);
             this.Controls.Add(this.openintervalbutton);
             this.Controls.Add(this.executevideo);
@@ -618,6 +634,7 @@
         private System.Windows.Forms.Button executevideo;
         private System.Windows.Forms.Button openintervalbutton;
         private System.Windows.Forms.Button openmaskbutton;
+        private System.Windows.Forms.Button layerbutton;
     }
 }
 
