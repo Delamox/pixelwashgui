@@ -276,7 +276,7 @@ namespace pixelwashgui
         public string intervalpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
-        public static string version = "v1.1.0";
+        public static string version = "v1.1.2";
         public static string[] sortingarray = { "lightness", "hue", "intensity", "minimum", "saturation" };
         public static string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
         public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
