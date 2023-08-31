@@ -230,7 +230,7 @@
             // 
             this.executebutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.executebutton.ForeColor = System.Drawing.Color.White;
-            this.executebutton.Location = new System.Drawing.Point(12, 601);
+            this.executebutton.Location = new System.Drawing.Point(12, 630);
             this.executebutton.Name = "executebutton";
             this.executebutton.Size = new System.Drawing.Size(75, 23);
             this.executebutton.TabIndex = 12;
@@ -493,7 +493,7 @@
             // 
             this.executevideo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.executevideo.ForeColor = System.Drawing.Color.White;
-            this.executevideo.Location = new System.Drawing.Point(12, 630);
+            this.executevideo.Location = new System.Drawing.Point(12, 601);
             this.executevideo.Name = "executevideo";
             this.executevideo.Size = new System.Drawing.Size(75, 23);
             this.executevideo.TabIndex = 31;
