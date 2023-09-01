@@ -276,20 +276,11 @@ namespace pixelwashgui
         public string intervalpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
-        public static string version = "v1.1.2";
+        public static string version = "v1.1.3";
         public static string[] sortingarray = { "lightness", "hue", "intensity", "minimum", "saturation" };
         public static string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
         public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
         public static string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
-
-        public void openclipboard()
-        {
-            if (Clipboard.ContainsImage())
-            {
-                Clipboard.GetImage().Save(Path.Combine(userpath, "documents/pixelwashgui/clipwash.bmp"));
-                inputpath = Path.Combine(userpath, "documents/pixelwashgui/clipwash.bmp")
-            }
-        }
         public void openmask()
         {
             using (OpenFileDialog openfiledialog = new OpenFileDialog())
@@ -582,6 +573,17 @@ namespace pixelwashgui
             }
         }
 
+        public void openlayer()
+        {
+            status.Text = "Layer Created";
+            status.ForeColor = Color.LightGreen;
+            status.Update();
+            File.Copy(Path.Combine(userpath, "documents/pixelwashgui/tempwash.png"), Path.Combine(userpath, "documents/pixelwashgui/layerwash.png"), true);
+            inputpath = Path.Combine(userpath, "documents/pixelwashgui/layerwash.png");
+            Thread.Sleep(500);
+            status.Text = version + " Delamox";
+            status.ForeColor = Color.White;
+        }
         private void mainwindow_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop, false) == true)
@@ -602,7 +604,19 @@ namespace pixelwashgui
 
         private void layerbutton_Click(object sender, EventArgs e)
         {
-            inputpath = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
+            openlayer();
+        }
+
+        private void pastebutton_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsImage())
+            {
+                isvideo = false;
+                Clipboard.GetImage().Save(Path.Combine(userpath, "documents/pixelwashgui/clipwash.bmp"));
+                inputpath = Path.Combine(userpath, "documents/pixelwashgui/clipwash.bmp");
+                preview.ImageLocation = inputpath;
+                
+            }
         }
     }
 }

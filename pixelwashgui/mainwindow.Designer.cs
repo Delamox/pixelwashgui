@@ -63,6 +63,7 @@
             this.openintervalbutton = new System.Windows.Forms.Button();
             this.openmaskbutton = new System.Windows.Forms.Button();
             this.layerbutton = new System.Windows.Forms.Button();
+            this.pastebutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.lengthtrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.randomnesstrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.angletrack)).BeginInit();
@@ -331,7 +332,7 @@
             this.preview.InitialImage = null;
             this.preview.Location = new System.Drawing.Point(174, 12);
             this.preview.Name = "preview";
-            this.preview.Size = new System.Drawing.Size(1208, 832);
+            this.preview.Size = new System.Drawing.Size(1208, 851);
             this.preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.preview.TabIndex = 0;
             this.preview.TabStop = false;
@@ -340,7 +341,7 @@
             // 
             this.staticpic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.staticpic.Image = global::pixelwashgui.Properties.Resources._34042825;
-            this.staticpic.Location = new System.Drawing.Point(12, 688);
+            this.staticpic.Location = new System.Drawing.Point(12, 707);
             this.staticpic.Name = "staticpic";
             this.staticpic.Size = new System.Drawing.Size(156, 156);
             this.staticpic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -349,13 +350,14 @@
             // 
             // status
             // 
+            this.status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.status.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
             this.status.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.status.ForeColor = System.Drawing.Color.White;
-            this.status.Location = new System.Drawing.Point(93, 664);
+            this.status.Location = new System.Drawing.Point(12, 688);
             this.status.Name = "status";
             this.status.ReadOnly = true;
-            this.status.Size = new System.Drawing.Size(75, 13);
+            this.status.Size = new System.Drawing.Size(156, 13);
             this.status.TabIndex = 21;
             this.status.Text = "v+Delamox";
             this.status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -537,13 +539,26 @@
             this.layerbutton.UseVisualStyleBackColor = false;
             this.layerbutton.Click += new System.EventHandler(this.layerbutton_Click);
             // 
+            // pastebutton
+            // 
+            this.pastebutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(69)))), ((int)(((byte)(73)))));
+            this.pastebutton.ForeColor = System.Drawing.Color.White;
+            this.pastebutton.Location = new System.Drawing.Point(93, 659);
+            this.pastebutton.Name = "pastebutton";
+            this.pastebutton.Size = new System.Drawing.Size(75, 23);
+            this.pastebutton.TabIndex = 35;
+            this.pastebutton.Text = "paste image";
+            this.pastebutton.UseVisualStyleBackColor = false;
+            this.pastebutton.Click += new System.EventHandler(this.pastebutton_Click);
+            // 
             // mainwindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(43)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(1394, 856);
+            this.ClientSize = new System.Drawing.Size(1394, 875);
+            this.Controls.Add(this.pastebutton);
             this.Controls.Add(this.layerbutton);
             this.Controls.Add(this.openmaskbutton);
             this.Controls.Add(this.openintervalbutton);
@@ -635,6 +650,7 @@
         private System.Windows.Forms.Button openintervalbutton;
         private System.Windows.Forms.Button openmaskbutton;
         private System.Windows.Forms.Button layerbutton;
+        private System.Windows.Forms.Button pastebutton;
     }
 }
 
