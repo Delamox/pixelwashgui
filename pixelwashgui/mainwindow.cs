@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -276,7 +277,7 @@ namespace pixelwashgui
         public string intervalpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
-        public static string version = "v1.1.3";
+        public static string version = "v1.1.4";
         public static string[] sortingarray = { "lightness", "hue", "intensity", "minimum", "saturation" };
         public static string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
         public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
@@ -617,6 +618,13 @@ namespace pixelwashgui
                 preview.ImageLocation = inputpath;
                 
             }
+        }
+
+        private void copybutton_Click(object sender, EventArgs e)
+        {
+            var list = new StringCollection();
+            list.Add(Path.Combine(userpath, "documents/pixelwashgui/tempwash.png"));
+            Clipboard.SetFileDropList(list);
         }
     }
 }
