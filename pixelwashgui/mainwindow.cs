@@ -282,9 +282,16 @@ namespace pixelwashgui
         public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
         public static string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
 
-        
+        public void openclipboard()
+        {
+            if (Clipboard.ContainsImage())
+            {
+                Clipboard.GetImage().Save(Path.Combine(userpath, "documents/pixelwashgui/clipwash.bmp"));
+                inputpath = Path.Combine(userpath, "documents/pixelwashgui/clipwash.bmp")
+            }
+        }
         public void openmask()
-        { 
+        {
             using (OpenFileDialog openfiledialog = new OpenFileDialog())
             {
                 openfiledialog.InitialDirectory = (userpath + "/Downloads");
