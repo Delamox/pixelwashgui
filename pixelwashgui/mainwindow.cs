@@ -87,8 +87,23 @@ namespace pixelwashgui
         {
             ExecuteCommandVideo(randomnesstrack.Value, lengthtrack.Value, angletrack.Value, sortingtrack.Value.ToString(), functiontrack.Value.ToString(), lowthresholdtrack.Value, upperthresholdtrack.Value);
         }
+
+        private void openintervalbutton_Click(object sender, EventArgs e)
+        {
+            openinterval();
+        }
+
+        private void openmaskbutton_Click(object sender, EventArgs e)
+        {
+            openmask();
+        }
+
+        private void layerbutton_Click(object sender, EventArgs e)
+        {
+            openlayer();
+        }
         //valuehandlers
-            //randomnessvalue
+        //randomnessvalue
         private void randomnesstrack_ValueChanged(object sender, EventArgs e)
         {
             randomnessvalue.Text = randomnesstrack.Value.ToString();
@@ -591,21 +606,6 @@ namespace pixelwashgui
             {
                 e.Effect = DragDropEffects.All;
             }
-        }
-
-        private void openintervalbutton_Click(object sender, EventArgs e)
-        {
-            openinterval();
-        }
-
-        private void openmaskbutton_Click(object sender, EventArgs e)
-        {
-            openmask();
-        }
-
-        private void layerbutton_Click(object sender, EventArgs e)
-        {
-            openlayer();
         }
 
         private void pastebutton_Click(object sender, EventArgs e)
