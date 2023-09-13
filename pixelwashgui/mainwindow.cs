@@ -294,7 +294,7 @@ namespace pixelwashgui
         public string intervalpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
-        public static string version = "v1.1.4";
+        public static string version = "v1.1.5";
         public static string[] sortingarray = { "lightness", "hue", "intensity", "minimum", "saturation" };
         public static string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
         public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
@@ -337,8 +337,19 @@ namespace pixelwashgui
                         EncoderParameter maskEncoderParameter;
                         maskEncoderParameter = new EncoderParameter(maskEncoder, (long)EncoderValue.CompressionCCITT4);
                         maskEncoderParameters.Param[0] = maskEncoderParameter;
+                        if (MessageBox.Show("Do you want to invert the colour values?", "pixelwashgui " + version, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            for (int y = 0; (y <= (maskBitmap.Height - 1)); y++)
+                            {
+                                for (int x = 0; (x <= (maskBitmap.Width - 1)); x++)
+                                {
+                                    Color inv = maskBitmap.GetPixel(x, y);
+                                    inv = Color.FromArgb(inv.A, (255 - inv.R), (255 - inv.G), (255 - inv.B));
+                                    maskBitmap.SetPixel(x, y, inv);
+                                }
+                            }
+                        }
                         maskBitmap.Save(Path.Combine(userpath, "documents/pixelwashgui/maskwash.tiff"), maskImgCodecInfo, maskEncoderParameters);
-                        
                         maskpath = " -m \"" + Path.Combine(userpath, "documents/pixelwashgui/maskwash.tiff") + "\"";
                         hasmask = true;
                     }
@@ -380,6 +391,18 @@ namespace pixelwashgui
                         EncoderParameter intervalEncoderParameter;
                         intervalEncoderParameter = new EncoderParameter(intervalEncoder, (long)EncoderValue.CompressionCCITT4);
                         intervalEncoderParameters.Param[0] = intervalEncoderParameter;
+                        if (MessageBox.Show("Do you want to invert the colour values?", "pixelwashgui " + version, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            for (int y = 0; (y <= (intervalBitmap.Height - 1)); y++)
+                            {
+                                for (int x = 0; (x <= (intervalBitmap.Width - 1)); x++)
+                                {
+                                    Color inv = intervalBitmap.GetPixel(x, y);
+                                    inv = Color.FromArgb(inv.A, (255 - inv.R), (255 - inv.G), (255 - inv.B));
+                                    intervalBitmap.SetPixel(x, y, inv);
+                                }
+                            }
+                        }
                         intervalBitmap.Save(Path.Combine(userpath, "documents/pixelwashgui/intervalwash.tiff"), intervalImgCodecInfo, intervalEncoderParameters);
 
                         intervalpath = " -f \"" + Path.Combine(userpath, "documents/pixelwashgui/intervalwash.tiff") + "\"";
