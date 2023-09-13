@@ -5,7 +5,7 @@ Standalone GUI addon for [satyarth's pixelsorter](https://github.com/satyarth/pi
 
 #### (windows only)
 1) Download and install: [python](https://www.python.org/ftp/python/3.11.4/python-3.11.4-amd64.exe) if you haven't already. Make sure to tick the 'add to PATH' option in the installer or it wont work.
-2) TBA FFMPEG (video temp not working unless ffmpeg already installed)(sorry).
+2) (optional and complicated) Download and install ffmpeg using this guide: [ffmpeg installation guide](https://phoenixnap.com/kb/ffmpeg-windows).
 3) Install Satyarth's pixelsorter algorithm by pasting the following command in the command prompt (cmd.exe in windows): `pip install pixelsort`
 3) Download the lastest [pixelwashgui.exe](https://github.com/Delamox/pixelwashgui/releases).
 
@@ -28,10 +28,9 @@ Standalone GUI addon for [satyarth's pixelsorter](https://github.com/satyarth/pi
 
 ## Masking and Thresholding
 #### Apply a mask image to set what pixels you want changed:
-1) Press the 'open mask' button, make sure the image is black-white only and has the same dimensions as the uploaded file.
+1) Press the 'open mask' button, make sure that the mask has the same dimensions as the to be converted file.
 2) Follow the usage steps.
 #### Apply a threshold image to define intervals:
-1) Press the 'open thres' button, make sure the image is black-white only and has the same dimensions as the uploaded file.
+1) Press the 'open thres' button, make sure that the threshold file has the same dimensions as the to be converted file.
 2) Select either the File or the File Edges function, File Edges will run an Edge-Detection on the image first.
 3) Follor the usage steps.
-##### WARNING: Black-white detection is not yet implemented and the program will hang if you upload a colored image. Might also not work with videos. Code will not return an error.
