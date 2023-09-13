@@ -6,11 +6,13 @@ using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
 using System.Text;
@@ -297,6 +299,19 @@ namespace pixelwashgui
         public static string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
         public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
         public static string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
+
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j)
+            {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
+        }
         public void openmask()
         {
             using (OpenFileDialog openfiledialog = new OpenFileDialog())
@@ -311,7 +326,20 @@ namespace pixelwashgui
                     if (paths.Contains(mapextensioncheck) && preview.Image.Width == System.Drawing.Image.FromFile(openfiledialog.FileName).Width 
                         && preview.Image.Height == System.Drawing.Image.FromFile(openfiledialog.FileName).Height)
                     {
-                        maskpath = " -m \"" + openfiledialog.FileName + "\"";
+                        Bitmap maskBitmap;
+                        maskBitmap = new Bitmap(openfiledialog.FileName);
+                        ImageCodecInfo maskImgCodecInfo;
+                        maskImgCodecInfo = GetEncoderInfo("image/tiff");
+                        System.Drawing.Imaging.Encoder maskEncoder;
+                        maskEncoder = System.Drawing.Imaging.Encoder.Compression;
+                        EncoderParameters maskEncoderParameters;
+                        maskEncoderParameters = new EncoderParameters(1);
+                        EncoderParameter maskEncoderParameter;
+                        maskEncoderParameter = new EncoderParameter(maskEncoder, (long)EncoderValue.CompressionCCITT4);
+                        maskEncoderParameters.Param[0] = maskEncoderParameter;
+                        maskBitmap.Save(Path.Combine(userpath, "documents/pixelwashgui/maskwash.tiff"), maskImgCodecInfo, maskEncoderParameters);
+                        
+                        maskpath = " -m \"" + Path.Combine(userpath, "documents/pixelwashgui/maskwash.tiff") + "\"";
                         hasmask = true;
                     }
                     else
@@ -341,7 +369,20 @@ namespace pixelwashgui
                     if (paths.Contains(mapextensioncheck) && preview.Image.Width == System.Drawing.Image.FromFile(openfiledialog.FileName).Width 
                         && preview.Image.Height == System.Drawing.Image.FromFile(openfiledialog.FileName).Height)
                     {
-                        intervalpath = " -f \"" + openfiledialog.FileName + "\"";
+                        Bitmap intervalBitmap;
+                        intervalBitmap = new Bitmap(openfiledialog.FileName);
+                        ImageCodecInfo intervalImgCodecInfo;
+                        intervalImgCodecInfo = GetEncoderInfo("image/tiff");
+                        System.Drawing.Imaging.Encoder intervalEncoder;
+                        intervalEncoder = System.Drawing.Imaging.Encoder.Compression;
+                        EncoderParameters intervalEncoderParameters;
+                        intervalEncoderParameters = new EncoderParameters(1);
+                        EncoderParameter intervalEncoderParameter;
+                        intervalEncoderParameter = new EncoderParameter(intervalEncoder, (long)EncoderValue.CompressionCCITT4);
+                        intervalEncoderParameters.Param[0] = intervalEncoderParameter;
+                        intervalBitmap.Save(Path.Combine(userpath, "documents/pixelwashgui/intervalwash.tiff"), intervalImgCodecInfo, intervalEncoderParameters);
+
+                        intervalpath = " -f \"" + Path.Combine(userpath, "documents/pixelwashgui/intervalwash.tiff") + "\"";
                         hasinterval = true;
                     }
                     else
