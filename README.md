@@ -17,6 +17,7 @@ Standalone GUI addon for [satyarth's pixelsorter](https://github.com/satyarth/pi
 4) Click the 'pixelsort' button and wait until the generated image shows up.
 5) Either click the 'save file' button to save the currently displayed image or return to step 3. Alternatively, you can put the output image back in to the input to apply multiple layers by pressing the 'new layer' button and returning to step 3.
 #### Videos:
+##### WARNING: Requires FFmpeg to be installed, more information in step 2 of [Installation](https://github.com/Delamox/pixelwashgui#installation).
 1) Open the downloaded pixelwashgui.exe file.
 2) Drag and drop a [supported video](https://github.com/Delamox/pixelwashgui/blob/master/videoextensions.md) or select one manually by clicking the 'open file' button.
 3) Adjust the sliders or type in values by clicking on the numbers next to the labels. Visit [satyarth's argumentation](https://github.com/satyarth/pixelsort/#parameters) for a more detailed explanation.
