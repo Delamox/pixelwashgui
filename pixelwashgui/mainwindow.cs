@@ -297,7 +297,7 @@ namespace pixelwashgui
         public static string version = "v1.1.5";
         public static string[] sortingarray = { "lightness", "hue", "intensity", "minimum", "saturation" };
         public static string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
-        public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG" };
+        public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG", ".jpeg", ".Jpeg", ".JPEG", ".tif", ".Tif", ".TIF", ".tiff", ".Tiff", ".TIFF"};
         public static string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
 
         private static ImageCodecInfo GetEncoderInfo(String mimeType)
@@ -317,7 +317,7 @@ namespace pixelwashgui
             using (OpenFileDialog openfiledialog = new OpenFileDialog())
             {
                 openfiledialog.InitialDirectory = (userpath + "/Downloads");
-                openfiledialog.Filter = "Supported Formats (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
+                openfiledialog.Filter = "Supported Formats (*.png;*.jpg;*.jpeg;*.tif;*.tiff)|*.png;*.jpg;*.jpeg;*.tif;*.tiff|All files (*.*)|*.*";
                 openfiledialog.FilterIndex = 1;
                 openfiledialog.RestoreDirectory = false;
                 if (openfiledialog.ShowDialog() == DialogResult.OK)
@@ -371,7 +371,7 @@ namespace pixelwashgui
             using (OpenFileDialog openfiledialog = new OpenFileDialog())
             {
                 openfiledialog.InitialDirectory = (userpath + "/Downloads");
-                openfiledialog.Filter = "Supported Formats (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
+                openfiledialog.Filter = "Supported Formats (*.png;*.jpg;*.jpeg;*.tif;*.tiff)|*.png;*.jpg;*.jpeg;*.tif;*.tiff|All files (*.*)|*.*";
                 openfiledialog.FilterIndex = 1;
                 openfiledialog.RestoreDirectory = false;
                 if (openfiledialog.ShowDialog() == DialogResult.OK)
@@ -427,7 +427,9 @@ namespace pixelwashgui
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = (userpath + "/Downloads");
-                openFileDialog.Filter = "Supported Formats (*.png;*.jpg;*.mp4)|*.png;*.jpg;*.mp4|All files (*.*)|*.*";
+                openFileDialog.Filter = "Image Formats (*.png;*.jpg;*.jpeg;*.tif;*.tiff;*.mp4;*.mov;*.mkv;*.webm)|*.png;*.jpg;*.jpeg;*.tif;*.tiff;*.mp4;*.mov;*.mkv;*.webm|" +
+                                        "Picture Formats (*.png;*.jpg;*.jpeg;*.tif;*.tiff)|*.png;*.jpg;*.jpeg;*.tif;*.tiff|" +
+                                        "Video Formats (*.mp4;*.mov;*.mkv;*.webm)|*.mp4;*.mov;*.mkv;*.webm|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = false;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
