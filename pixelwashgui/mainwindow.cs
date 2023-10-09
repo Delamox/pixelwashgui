@@ -294,12 +294,12 @@ namespace pixelwashgui
         public string intervalpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
-        public static string version = "v1.1.5a";
+        public static string version = "v1.1.5b";
         public static string[] sortingarray = { "lightness", "hue", "intensity", "minimum", "saturation" };
         public static string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
         public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG", ".jpeg", ".Jpeg", ".JPEG", ".tif", ".Tif", ".TIF", ".tiff", ".Tiff", ".TIFF"};
         public static string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
-
+        //tiff encoding setup
         private static ImageCodecInfo GetEncoderInfo(String mimeType)
         {
             int j;
@@ -312,6 +312,8 @@ namespace pixelwashgui
             }
             return null;
         }
+        //function code
+            //open mask file
         public void openmask()
         {
             using (OpenFileDialog openfiledialog = new OpenFileDialog())
@@ -365,7 +367,7 @@ namespace pixelwashgui
                 }
             }
         }
-
+            //open interval file
         public void openinterval()
         { 
             using (OpenFileDialog openfiledialog = new OpenFileDialog())
@@ -420,8 +422,7 @@ namespace pixelwashgui
                 }
             }
         }
-        //function code
-            //openfiledialog
+            //open file
         public void OpenFileFunction()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -465,7 +466,7 @@ namespace pixelwashgui
                 }
             }
         }
-            //savefiledialog
+            //save file
         public void SaveFileFunction()
         {
             if (isvideo == false)
@@ -501,7 +502,7 @@ namespace pixelwashgui
                 }
             }
         }
-            //pixelsortcommunicator
+            //image parsing
         public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue, int lowerthresholdvalue, int upperthresholdvalue)
         {
             
@@ -539,7 +540,7 @@ namespace pixelwashgui
                 isbusy = false;
             }
         }
-            //videopixelsortcommunicator
+            //video parser
         public void ExecuteCommandVideo(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue, int lowerthresholdvalue, int upperthresholdvalue)
         {
             isbusy = true;
@@ -594,7 +595,7 @@ namespace pixelwashgui
             isbusy = false;
             SaveFileFunction();
         }
-            //videoloader
+            //load video
         private void loadvideo()
         {
             isbusy = true;
@@ -621,7 +622,7 @@ namespace pixelwashgui
             status.ForeColor = Color.White;
             isbusy = false;
         }
-            //draganddroploader
+            //drag drop file
         private void mainwindow_DragDrop(object sender, DragEventArgs e)
         {
             string[] dragdropinput = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -654,7 +655,7 @@ namespace pixelwashgui
                 MessageBox.Show("invalid file type, use either png, jpg or mp4 files.");
             }
         }
-
+            //new layer
         public void openlayer()
         {
             status.Text = "Layer Created";
@@ -666,6 +667,7 @@ namespace pixelwashgui
             status.Text = version + " Delamox";
             status.ForeColor = Color.White;
         }
+            //drag drop init
         private void mainwindow_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop, false) == true)
@@ -673,7 +675,7 @@ namespace pixelwashgui
                 e.Effect = DragDropEffects.All;
             }
         }
-
+            //copy
         private void pastebutton_Click(object sender, EventArgs e)
         {
             if (Clipboard.ContainsImage())
@@ -685,7 +687,7 @@ namespace pixelwashgui
                 
             }
         }
-
+            //paste
         private void copybutton_Click(object sender, EventArgs e)
         {
             var list = new StringCollection();
