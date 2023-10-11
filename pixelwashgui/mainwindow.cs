@@ -525,7 +525,7 @@ namespace pixelwashgui
                     completecommand = "/C python -m pixelsort " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempvideo/" + videoframetrack.Value + ".png") + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png")
                     + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue + maskpath + intervalpath;
                 }
-                //MessageBox.Show(completecommand);
+                Console.Write(completecommand);
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
