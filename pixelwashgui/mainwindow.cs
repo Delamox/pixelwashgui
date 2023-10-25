@@ -302,7 +302,7 @@ namespace pixelwashgui
         public static string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
         public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG", ".jpeg", ".Jpeg", ".JPEG", ".tif", ".Tif", ".TIF", ".tiff", ".Tiff", ".TIFF"};
         public static string[] videopaths = { ".mp4", ".Mp4 ", ".MP4", ".mov", ".Mov", ".MOV", ".mkv", ".Mkv", ".MKV", ".webm", ".WebM", "WEBM" };
-
+        //tiff encoding setup
         private static ImageCodecInfo GetEncoderInfo(String mimeType)
         {
             int j;
@@ -315,6 +315,8 @@ namespace pixelwashgui
             }
             return null;
         }
+        //function code
+            //open mask file
         public void openmask()
         {
             using (OpenFileDialog openfiledialog = new OpenFileDialog())
@@ -369,7 +371,7 @@ namespace pixelwashgui
                 }
             }
         }
-
+            //open interval file
         public void openinterval()
         { 
             using (OpenFileDialog openfiledialog = new OpenFileDialog())
@@ -425,8 +427,7 @@ namespace pixelwashgui
                 }
             }
         }
-        //function code
-            //openfiledialog
+            //open file
         public void OpenFileFunction()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -484,6 +485,7 @@ namespace pixelwashgui
         }
         
             //savefiledialog
+            //save file
         public void SaveFileFunction()
         {
             if (isvideo == false)
@@ -519,7 +521,7 @@ namespace pixelwashgui
                 }
             }
         }
-            //pixelsortcommunicator
+            //image parsing
         public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue, int lowerthresholdvalue, int upperthresholdvalue)
         {
             
@@ -552,7 +554,7 @@ namespace pixelwashgui
                     completecommand = "/C python -m pixelsort " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempvideo/" + videoframetrack.Value + ".png") + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png")
                     + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue + maskpath + intervalpath;
                 }
-                //MessageBox.Show(completecommand);
+                Console.Write(completecommand);
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -583,7 +585,7 @@ namespace pixelwashgui
                 isbusy = false;
             }
         }
-            //videopixelsortcommunicator
+            //video parser
         public void ExecuteCommandVideo(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue, int lowerthresholdvalue, int upperthresholdvalue)
         {
             isbusy = true;
@@ -638,7 +640,7 @@ namespace pixelwashgui
             isbusy = false;
             SaveFileFunction();
         }
-            //videoloader
+            //load video
         private void loadvideo()
         {
             isbusy = true;
@@ -665,7 +667,7 @@ namespace pixelwashgui
             status.ForeColor = Color.White;
             isbusy = false;
         }
-            //draganddroploader
+            //drag drop file
         private void mainwindow_DragDrop(object sender, DragEventArgs e)
         {
             string[] dragdropinput = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -698,7 +700,7 @@ namespace pixelwashgui
                 MessageBox.Show("invalid file type, use either png, jpg or mp4 files.");
             }
         }
-
+            //new layer
         public void openlayer()
         {
             status.Text = "Layer Created";
@@ -710,6 +712,7 @@ namespace pixelwashgui
             status.Text = version + " Delamox";
             status.ForeColor = Color.White;
         }
+            //drag drop init
         private void mainwindow_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop, false) == true)
@@ -717,7 +720,7 @@ namespace pixelwashgui
                 e.Effect = DragDropEffects.All;
             }
         }
-
+            //copy
         private void pastebutton_Click(object sender, EventArgs e)
         {
             if (Clipboard.ContainsImage())
@@ -729,7 +732,7 @@ namespace pixelwashgui
                 
             }
         }
-
+            //paste
         private void copybutton_Click(object sender, EventArgs e)
         {
             var list = new StringCollection();
