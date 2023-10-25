@@ -287,14 +287,17 @@ namespace pixelwashgui
         public int videoframes = 0;
         public bool isvideo = false;
         public bool isbusy = false;
+        public bool isreduced = false;
         public bool hasmask = false;
         public bool hasinterval = false;
         public string inputpath = string.Empty;
+        public string sortpath = string.Empty;
+        public string exitpath = string.Empty;
         public string maskpath = string.Empty;
         public string intervalpath = string.Empty;
         public string userpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public static string doubletick = "\"";
-        public static string version = "v1.1.5a";
+        public static string version = "v1.1.5b";
         public static string[] sortingarray = { "lightness", "hue", "intensity", "minimum", "saturation" };
         public static string[] functionarray = { "random", "threshold", "edges", "waves", "file", "file edges", "none" };
         public static string[] paths = { ".png", ".Png", ".PNG", ".jpg", ".Jpg", "JPG", ".jpeg", ".Jpeg", ".JPEG", ".tif", ".Tif", ".TIF", ".tiff", ".Tiff", ".TIFF"};
@@ -361,6 +364,7 @@ namespace pixelwashgui
                 else 
                 {
                     maskpath = "";
+                    MessageBox.Show("Mask cleared");
                     hasmask = false;
                 }
             }
@@ -416,6 +420,7 @@ namespace pixelwashgui
                 else 
                 {
                     intervalpath = "";
+                    MessageBox.Show("Interval cleared");
                     hasinterval = false;
                 }
             }
@@ -449,8 +454,7 @@ namespace pixelwashgui
                     {
                         isvideo = false;
                         inputpath = openFileDialog.FileName;
-                        preview.ImageLocation = inputpath;
-                        preview.Update();
+                        loadimage();
                     }
                     else if (videopaths.Contains(extensioncheck))
                     {
@@ -465,6 +469,20 @@ namespace pixelwashgui
                 }
             }
         }
+        public void loadimage()
+        {
+            if (MessageBox.Show("Do you want to reduce pixel samples", "pixelwashgui " + version, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                isreduced = true;
+                int height = Image.FromFile(inputpath).Height;
+                int width = Image.FromFile(inputpath).Width;
+                Bitmap reducedbitmap = new Bitmap(Image.FromFile(inputpath), new Size(width / 2, height / 2));
+                reducedbitmap.Save(Path.Combine(userpath, "documents/pixelwashgui/reducedwash.bmp"));
+            }
+            preview.ImageLocation = inputpath;
+            preview.Update();
+        }
+        
             //savefiledialog
         public void SaveFileFunction()
         {
@@ -514,9 +532,19 @@ namespace pixelwashgui
                 sortingvalue = sortingarray[sortingtrack.Value - 1];
                 functionvalue = functionarray[functiontrack.Value - 1];
                 string completecommand = "";
+                if (isreduced == true)
+                {
+                    sortpath = Path.Combine(userpath, "documents/pixelwashgui/reducedwash.bmp");
+                    exitpath = Path.Combine(userpath, "documents/pixelwashgui/tempwash.bmp");
+                }
+                else
+                {
+                    sortpath = inputpath;
+                    exitpath = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
+                }
                 if (isvideo == false)
                 {
-                    completecommand = "/C python -m pixelsort " + doubletick + inputpath + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempwash.png")
+                    completecommand = "/C python -m pixelsort " + doubletick + sortpath + doubletick + " -o " + doubletick + exitpath
                     + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue + maskpath + intervalpath;
                 }
                 else if (isvideo == true)
@@ -533,6 +561,22 @@ namespace pixelwashgui
                 process.StartInfo = startInfo;
                 process.Start();
                 process.WaitForExit();
+                if (isreduced == true)
+                {
+                    Bitmap extendedbitmap = new Bitmap(Image.FromFile(exitpath));
+                    Bitmap reducedbitmap = new Bitmap(Image.FromFile(Path.Combine(userpath, "documents/pixelwashgui/reducedwash.bmp")));
+                    for (int y = 0; (y <= (extendedbitmap.Height - 1)); y++)
+                    {
+                        for (int x = 0; (x <= (extendedbitmap.Width - 1)); x++)
+                        {
+                            if (extendedbitmap.GetPixel(x, y) == reducedbitmap.GetPixel(x, y))
+                            {
+                                extendedbitmap.SetPixel(x, y, Color.Transparent);
+                            }
+                        }
+                    }
+                    extendedbitmap.Save(Path.Combine(userpath, "documents/pixelwashgui/tempwash.png"));
+                }
                 preview.ImageLocation = Path.Combine(userpath, "documents/pixelwashgui/tempwash.png");
                 status.Text = version + " Delamox";
                 status.ForeColor = Color.White;
