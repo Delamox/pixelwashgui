@@ -37,35 +37,32 @@ namespace pixelwashgui
             status.Text = version + " Delamox";
             Text = "pixelwash " + version;
             init();
-
         }
 
         public void init()
         {
-            System.Diagnostics.Process process3 = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo3 = new System.Diagnostics.ProcessStartInfo();
-            startInfo3.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo3.FileName = "cmd.exe";
-            startInfo3.Arguments = "/C python -m pip show pixelsort";
-            startInfo3.UseShellExecute = false;
-            startInfo3.RedirectStandardOutput = true;
-            startInfo3.RedirectStandardError = true;
-            startInfo3.CreateNoWindow = true;
-            process3.StartInfo = startInfo3;
-            process3.Start();
-            var pixelinstalled = process3.StandardError.ReadToEnd();
-            process3.WaitForExit();
+            System.Diagnostics.Process initProcess = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo initInfo = new System.Diagnostics.ProcessStartInfo();
+            initInfo.FileName = "cmd.exe";
+            initInfo.Arguments = "/C python -m pip show pixelsort";
+            initInfo.UseShellExecute = false;
+            initInfo.RedirectStandardOutput = true;
+            initInfo.RedirectStandardError = true;
+            initInfo.CreateNoWindow = true;
+            initProcess.StartInfo = initInfo;
+            initProcess.Start();
+            var pixelinstalled = initProcess.StandardError.ReadToEnd();
+            initProcess.WaitForExit();
             if (pixelinstalled.Contains("not found"))
             {
-                System.Diagnostics.Process process2 = new System.Diagnostics.Process();
-                System.Diagnostics.ProcessStartInfo startInfo2 = new System.Diagnostics.ProcessStartInfo();
-                startInfo2.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-                startInfo2.FileName = "cmd.exe";
-                startInfo2.Arguments = "/C python -m pip install pixelsort";
-                process2.StartInfo = startInfo2;
-                process2.Start();
-                Console.ReadKey();
-                process2.WaitForExit();
+                System.Diagnostics.Process installProcess = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo installInfo = new System.Diagnostics.ProcessStartInfo();
+                installInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                installInfo.FileName = "cmd.exe";
+                installInfo.Arguments = "/C python -m pip install pixelsort";
+                installProcess.StartInfo = installInfo;
+                installProcess.Start();
+                installProcess.WaitForExit();
             }
 
         }
@@ -627,7 +624,7 @@ namespace pixelwashgui
             string framerate = new DataTable().Compute(frameratecomputed, null).ToString();
             process3.WaitForExit();
             System.Diagnostics.Process process2 = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo2 = new System.Diagnostics.ProcessStartInfo();
+            System.Diagnostics.ProcessStartInfo installInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo2.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo2.UseShellExecute = false;
             startInfo2.FileName = "cmd.exe";
