@@ -261,9 +261,8 @@ namespace pixelwashgui
         private void videoframevalue_TextChanged(object sender, EventArgs e)
         {
             int IgnoreMe = 0;
-            bool videoframeparse = int.TryParse(videoframevalue.Text, out IgnoreMe);
             if (videoframevalue.Text == "") { }
-            else if (videoframeparse)
+            else if (int.TryParse(videoframevalue.Text, out IgnoreMe))
             {
                 int videoframevalueint = int.Parse(videoframevalue.Text);
                 if (videoframevalueint >= 1 && videoframevalueint <= videoframetrack.Maximum)
@@ -503,7 +502,6 @@ namespace pixelwashgui
             }
             else if (isvideo == true)
             {
-                Random random = new Random();
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.InitialDirectory = (userpath + "/Downloads");
                 saveFileDialog.Filter = "MPEG-4 video format (*.mp4)|*.mp4|All files (*.*)|*.*";
@@ -511,14 +509,14 @@ namespace pixelwashgui
                 saveFileDialog.FilterIndex = 1;
                 saveFileDialog.RestoreDirectory = false;
                 saveFileDialog.OverwritePrompt = true;
-                saveFileDialog.FileName = "pixelsortvideo" + random.Next(1, 1000).ToString();
+                saveFileDialog.FileName = "pixelsortvideo" + new Random().Next(1, 1000).ToString();
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     System.IO.File.Copy(Path.Combine(userpath, "documents/pixelwashgui/tempwash.mp4"), saveFileDialog.FileName, true);
                 }
             }
         }
-            //image parsing
+            //image parser
         public void ExecuteCommand(int randomvalue, int lengthvalue, int anglevalue, string sortingvalue, string functionvalue, int lowerthresholdvalue, int upperthresholdvalue)
         {
             
@@ -552,14 +550,14 @@ namespace pixelwashgui
                     + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue + maskpath + intervalpath;
                 }
                 Console.Write(completecommand);
-                System.Diagnostics.Process process = new System.Diagnostics.Process();
-                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = completecommand;
-                process.StartInfo = startInfo;
-                process.Start();
-                process.WaitForExit();
+                System.Diagnostics.Process execute = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo executeInfo = new System.Diagnostics.ProcessStartInfo();
+                executeInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                executeInfo.FileName = "cmd.exe";
+                executeInfo.Arguments = completecommand;
+                execute.StartInfo = executeInfo;
+                execute.Start();
+                execute.WaitForExit();
                 if (isreduced == true)
                 {
                     Bitmap extendedbitmap = new Bitmap(Image.FromFile(exitpath));
@@ -599,39 +597,39 @@ namespace pixelwashgui
             for (int i = 1; i <= videoframes; i++)
             {
                 status.Text = i + "/" + videoframes;
-                System.Diagnostics.Process process = new System.Diagnostics.Process();
-                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = "/C python -m pixelsort " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempvideo/" + i + ".png") + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/" + i + ".png")
+                System.Diagnostics.Process execute = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo executeInfo = new System.Diagnostics.ProcessStartInfo();
+                executeInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                executeInfo.FileName = "cmd.exe";
+                executeInfo.Arguments = "/C python -m pixelsort " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/tempvideo/" + i + ".png") + doubletick + " -o " + doubletick + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/" + i + ".png")
                     + doubletick + " -r " + randomvalue + " -c " + lengthvalue + " -a " + anglevalue + " -s " + sortingvalue + " -i " + functionvalue + " -t 0." + lowerthresholdvalue + " -u 0." + upperthresholdvalue + maskpath + intervalpath;
-                process.StartInfo = startInfo;
-                process.Start();
-                process.WaitForExit();
+                execute.StartInfo = executeInfo;
+                execute.Start();
+                execute.WaitForExit();
             }
             status.Text = "muxing";
             status.ForeColor = Color.Red;
-            System.Diagnostics.Process process3 = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo3 = new System.Diagnostics.ProcessStartInfo();
-            startInfo3.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo3.FileName = "cmd.exe";
-            startInfo3.Arguments = "/C ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=r_frame_rate \"" + inputpath + "\"";
-            startInfo3.UseShellExecute = false;
-            startInfo3.RedirectStandardOutput = true;
-            process3.StartInfo = startInfo3;
-            process3.Start();
-            string frameratecomputed = process3.StandardOutput.ReadLine().ToString();
+            System.Diagnostics.Process ffprobe = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo ffprobeInfo = new System.Diagnostics.ProcessStartInfo();
+            ffprobeInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            ffprobeInfo.FileName = "cmd.exe";
+            ffprobeInfo.Arguments = "/C ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=r_frame_rate \"" + inputpath + "\"";
+            ffprobeInfo.UseShellExecute = false;
+            ffprobeInfo.RedirectStandardOutput = true;
+            ffprobe.StartInfo = ffprobeInfo;
+            ffprobe.Start();
+            string frameratecomputed = ffprobe.StandardOutput.ReadLine().ToString();
             string framerate = new DataTable().Compute(frameratecomputed, null).ToString();
-            process3.WaitForExit();
-            System.Diagnostics.Process process2 = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo installInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo2.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo2.UseShellExecute = false;
-            startInfo2.FileName = "cmd.exe";
-            startInfo2.Arguments = "/C ffmpeg -y -i \"" + inputpath + "\" -i \"" + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/%0d.png") + "\"  -map 0 -map -0:v -map 1 -c:v libx264 -pix_fmt yuv420p -start_number 1 -r " + framerate + " -vf \"setpts =(1/(" + framerate + "/25))*PTS\" " + Path.Combine(userpath, "documents/pixelwashgui/tempwash.mp4");
-            process2.StartInfo = startInfo2;
-            process2.Start();
-            process2.WaitForExit();
+            ffprobe.WaitForExit();
+            System.Diagnostics.Process ffmpeg = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo ffmpegInfo = new System.Diagnostics.ProcessStartInfo();
+            ffmpegInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            ffmpegInfo.UseShellExecute = false;
+            ffmpegInfo.FileName = "cmd.exe";
+            ffmpegInfo.Arguments = "/C ffmpeg -y -i \"" + inputpath + "\" -i \"" + Path.Combine(userpath, "documents/pixelwashgui/processedvideo/%0d.png") + "\"  -map 0 -map -0:v -map 1 -c:v libx264 -pix_fmt yuv420p -start_number 1 -r " + framerate + " -vf \"setpts =(1/(" + framerate + "/25))*PTS\" " + Path.Combine(userpath, "documents/pixelwashgui/tempwash.mp4");
+            ffmpeg.StartInfo = ffmpegInfo;
+            ffmpeg.Start();
+            ffmpeg.WaitForExit();
             status.Text = version + " Delamox";
             status.ForeColor = Color.White;
             isbusy = false;
@@ -645,15 +643,15 @@ namespace pixelwashgui
             status.ForeColor = Color.Red;
             Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui"));
             Directory.CreateDirectory(Path.Combine(userpath, "documents/pixelwashgui/tempvideo"));
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WorkingDirectory = Path.Combine(userpath, "documents/pixelwashgui/tempvideo");
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C ffmpeg -i \"" + inputpath + "\" %0d.png";
-            process.StartInfo = startInfo;
-            process.Start();
-            process.WaitForExit();
+            System.Diagnostics.Process videoImport = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo videoImportInfo = new System.Diagnostics.ProcessStartInfo();
+            videoImportInfo.WorkingDirectory = Path.Combine(userpath, "documents/pixelwashgui/tempvideo");
+            videoImportInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            videoImportInfo.FileName = "cmd.exe";
+            videoImportInfo.Arguments = "/C ffmpeg -i \"" + inputpath + "\" %0d.png";
+            videoImport.StartInfo = videoImportInfo;
+            videoImport.Start();
+            videoImport.WaitForExit();
             videoframes = Directory.GetFiles(Path.Combine(userpath, "documents/pixelwashgui/tempvideo"), "*", SearchOption.TopDirectoryOnly).Length;
             videoframetrack.Maximum = videoframes;
             videoframetrack.TickFrequency = videoframes / 10;
